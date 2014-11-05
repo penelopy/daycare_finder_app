@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block body %}
+
+	<div class="container"> 
+		<form class="form-register-parent" role="form" action="{{ url_for ('new_daycare') }}" method="post"> 
+			<h2 "form-signin-heading"> Daycare account registration </h2>
+			<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
+			<input type="password" class="form-control" placeholder="Password" required name="password">
+			<input type ="biz_name" class="form-control" placeholder="Biz_name" required autofocus name="biz_name">
+			<input type ="primary_contact" class="form-control" placeholder="Primary contact" required autofocus name="primary_contact">
+			<input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
+			<input type ="neighborhood" class="form-control" placeholder="Neighborhood" required autofocus name="neighborhood">
+			<input type ="address" class="form-control" placeholder="Address" required autofocus name="address">
+			<input type ="phone" class="form-control" placeholder="Phone" required autofocus name="phone">
+			<input type ="email" class="form-control" placeholder="Email" required autofocus name="email">
+			<input type ="web_url" class="form-control" placeholder="Website" required autofocus name="web_url">
+			<input type ="fb_url" class="form-control" placeholder="Facebook page" required autofocus name="fb_url">
+			<input type ="yr_in_biz" class="form-control" placeholder="Years in Business" required autofocus name="yr_in_biz">
+			<input type ="capacity" class="form-control" placeholder="Capacity" required autofocus name="capacity">
+			<input type ="num_staff" class="form-control" placeholder="Number of Staff" required autofocus name="num_staff">
+			<input type ="license_num" class="form-control" placeholder="License #" required autofocus name="license_num">
+			<input type ="about_us" class="form-control" placeholder="About us" required autofocus name="about_us">
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+		</form>
+
+	</div>
+
+
+
+{% endblock %}
+
+

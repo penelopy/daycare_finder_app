@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% block body %}
+
+	<div class="container"> 
+		<form class="form-search-daycare" role="form" action="{{ url_for ('search_page') }}"> 
+			<h2 "form-signin-heading"> Search for daycare by zipcode </h2>
+			<input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+		</form>
+
+	</div>
+
+
+
+
+{% endblock %}

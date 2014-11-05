@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% block body %}
+<html>
+{{ daycare.biz_name }}
+
+<h2>Daycare listing(s) in zipcode: {{ daycare.zipcode }} </h2>
+<h1><a href="{{ url_for ('view_daycare', daycare.id) }}"> {{ daycare.biz_name}} </a></h1>
+
+{{ endfor }}
+</html>
+{% endblock %}

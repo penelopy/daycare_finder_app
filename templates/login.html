@@ -1,0 +1,35 @@
+<!-- sends login credentials to control.login methods to process -->
+
+{% extends 'base.html' %}
+{% block body %}
+
+	<div class="container"> 
+		<form class="form-signin-parent" role="form" action="{{ url_for ('login_p') }}" method="post"> 
+			<h2 "form-signin-heading"> Parent sign in </h2>
+			<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
+			<input type="password" class="form-control" placeholder="Password" required name="password">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+		</form>
+
+		<form class="form-signin-daycare" role="form" action="{{ url_for ('login_d') }}" method="post" > 
+		<h2 "form-signin-heading"> Daycare sign in </h2>
+		<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
+		<input type="password" class="form-control" placeholder="Password" required name="password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+		</form>
+
+		<div id="registration-link">
+			<a href="{{ url_for('par_signup')}}"> PARENTS: Create an account here </a>
+		</div>
+		<br>
+		<div id="registration-link">
+			<a href="{{ url_for('dc_signup')}}"> DAYCARES: Create an account here </a>
+		</div>
+
+
+	</div>
+
+
+{% endblock %}

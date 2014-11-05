@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+
+	<div class="container"> 
+		<form class="form-register-parent" role="form" action="{{ url_for ('new_parent') }}" method="post"> 
+			<h2 "form-signin-heading"> Parent account registration </h2>
+			<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
+			<input type="password" class="form-control" placeholder="Password" required name="password">
+
+			<input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
+			<input type ="neighborhood" class="form-control" placeholder="Neighborhood" required autofocus name="neighborhood">
+			
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+		</form>
+
+	</div>
+
+
+
+{% endblock %}
