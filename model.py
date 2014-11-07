@@ -1,62 +1,126 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Datetime, Text
+from sqlalchemy.orm import sessionmaker, relationship, backref
 
 ENGINE = None
 Session = None
 
-# ENGINE = create_engine("sqlite:///daycare_finder.db", echo=False)
-# session = scoped_session(sessionmaker(bind=ENGINE, autocommit = False, autoflush = False))
 Base = declarative_base()
-# Base.query = session.query_property()
-# Base = declarative_base()
-
-class Daycare(Base):
-	__tablename__ = "daycares"
-
-	id = Column(Integer, primary_key = True)
-	username = Column(String(32), nullable = False)
-	password = Column(String(32), nullable = False)
-	biz_name = Column(String(64), nullable = False)
-	primary_contact = Column(String(64), nullable = False)
-	zipcode = Column(String(15), nullable = False)
-	neighborhood = Column(String(32), nullable = False)
-	address = Column(String(128), nullable = True)
-	phone = Column(String(32), nullable = True) 
-	email = Column(String(64), nullable = False)
-
-	web_url = Column(String(64), nullable = True)
-	fb_url = Column(String(64), nullable = True)
-
-	yr_in_biz = Column(String(12), nullable = True) # ?? standard practice on data length? 
-	capacity = Column(String(12), nullable = True)
-	num_staff = Column(String(12), nullable = True)
-	license_num = Column(String(12), nullable = True)
-
-	about_us = Column(String(128), nullable = True) # FIXME - should probably allow longer string
-
-	def create_photo_gallery(): #placeholder for creating daycare photo gallery	
-		pass
-
-	def create_recommendations(): #placeholder for parent recommendations
-		pass
-
-
 
 class Parent(Base): 
 	__tablename__ = "parents"
 
 	id = Column(Integer, primary_key = True)
+	first_name = Column(String(32), nullable = False)
+	last_name = Column(String(32), nullable = False)
 	username = Column(String(64), nullable = False)
+	email = Column(String(64), nullable = False)
 	password = Column(String(32), nullable = False)
-	zipcode = Column(String(15), nullable = False)
-	neighborhood = Column(String(32), nullable = False)
-	age_of_child_1 = Column(String(12), nullable = True)
-	age_of_child_2 = Column(String(12), nullable = True)
-	age_of_child_3 = Column(String(12), nullable = True)
+	zipcode = Column(String(15))
+	neighborhood = Column(String(32))
 
-	#TODO - create way to upload photo...
+class Center(Base):    
+	__tablename__ = "centers"    
+	#login info
+	id = Column(Integer, primary_key = True)
+	username = Column(String(32), nullable = False)
+	email = Column(String(64), nullable = False)
+	password = Column(String(32), nullable = False)
+	#contact info
+	biz_name = Column(String(64))
+	primary_contact = Column(String(64))
+	zipcode = Column(String(15))
+	neighborhood = Column(String(32))
+	address = Column(String(128))
+	phone = Column(String(32))
+	web_url = Column(String(64))
+	fb_url = Column(String(64))
+	# biz facts
+	yr_in_biz = Column(Integer(12))
+	capacity = Column(String(12))
+	num_staff = Column(String(12))
+	license_num = Column(String(12))
+	current_openings = Column(Boolean)
+	special_needs = Column(Boolean) #over simplified could be expanded
+	opening_time = Column(Datetime) #FIXME adjust for just time?
+	closing_time = Column(Datetime)	#FIXME adjust for just time?
+	type_of_center_id = Column(Integer, ForeignKey('type_of_center.id')) 
+	rate = Column(Text)
+	# contextual details
+	about_us = Column(Text)
+	philosophy = Column(Text)
+	activities = Column(Text)
+
+	type_of_center = relationship("Type", backref="centers")
+
+class Type(Base): #backref to Daycare
+	__tablename__ = "type_of_center"
+	id = Column(Integer, primary_key = True)
+	name = Column(String(16)) # matches to type.csv  
+
+class Photo(Base):
+	__tablename__ = "photos" 
+	id = Column(Integer, primary_key = True)
+	center_id = Column(Integer, ForeignKey('centers.id'))
+	photo_link = Column(String(100))
+
+	center = relationship("Center", backref="photos")
+
+class Schedule(Base): # has association table (center_schedule)
+	__tablename__ = "schedules"
+	id = Column(Integer, primary_key = True)
+	name = Column(String(16)) #matches to schedule.csv    
+
+
+center_schedule = Table('center_schedule', Base.metadata, 
+	Column('center_schedule_id', Integer, primary_key=True), 
+	Column('center_id', Integer, ForeignKey('centers.id')),
+	Column('schedule_id', Integer, ForeignKey('schedules.id'))
+	 )
+
+class Language(Base): # has association table (center_language)
+	__tablename__ = "languages"
+	id = Column(Integer, primary_key = True)
+	name = Column(String(16)) # matches to languages.csv
+
+
+center_language = Table('center_language', Base.metadata, 
+	Column('center_language_id', Integer, primary_key=True), 
+	Column('center_id', Integer, ForeignKey('centers.id')),
+	Column('language_id', Integer, ForeignKey('languages.id'))
+	 )
+
+class Endorsement(Base):
+	__tablename__ = "endorsement"
+	id = Column(Integer, primary_key = True)
+	daycare_id = Column(Integer, ForeignKey('centers.id'))	
+	parent_id = Column(Integer, ForeignKey('parents.id'))
+	endorsement = Column(Text)
+
+	center = relationship("Center", backref="endorsements")
+	parent = relationship("Parent", backref="endorsements")
+
+
+upvotes = Table('upvotes', Base.metadata, 
+	Column('upvote_id', Integer, primary_key=True), 
+	Column('center_id', Integer, ForeignKey('centers.id')),
+	Column('parent_id', Integer, ForeignKey('parents.id'))
+	 )
+
+
+class WorksheetRow(Base):    
+	__tablename__ = "worksheet_row"
+	id = Column(Integer, primary_key = True)
+	daycare_id = Column(Integer, ForeignKey('center.id'))	
+	parent_id = Column(Integer, ForeignKey('parent.id'))
+	notes = Column(Text)
+	level_of_interest = Column(String(16))
+	last_contacted = Column(Datetime)
+	following = Column(Boolean)
+
+	daycare = relationship("Center", backref=backref("worksheets"))
+	parent = relationship("Parent", backref=("worksheets"))
 
 def connect(): 
 	global ENGINE
@@ -76,7 +140,6 @@ db_session = connect()
 
 
 def main():
-    """In case we need this for something"""
     pass
 
 if __name__ == "__main__":
