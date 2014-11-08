@@ -1,0 +1,19 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="950" measuredH="450" mockupW="671" mockupH="412">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="279" y="38" w="671" h="412" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Search%20Results</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::FieldSet" x="313" y="124" w="-1" h="-1" measuredW="200" measuredH="170" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Audrey%27s%20Nest</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::FieldSet" x="556" y="123" w="-1" h="-1" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Chinese%20Daycare</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

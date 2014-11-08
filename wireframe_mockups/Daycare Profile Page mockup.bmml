@@ -1,0 +1,57 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="897" measuredH="1117" mockupW="668" mockupH="924">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="229" y="193" w="520" h="924" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Daycare%20Profile%20Page%0A%20%0A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Map" x="589" y="572" w="142" h="149" measuredW="252" measuredH="222" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextArea" x="252" y="522" w="324" h="160" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>DESCRIPTION%0Asjlkasjdflksadjflskjdflskjdflksjdflksjdflksd%0Asdljfkslkdfjlskdfjlskdjflskjdflskjdflksjdf%0Alkjlkjlkjlkjlkjlkjlkjlsdkfjalsdkjfalskdfsd%0A%20%0APHILOSOPHY/APPROACH%0Asjlkasjdflksadjflskjdflskjdflksjdflksjdflksd%0Asdljfkslkdfjlskdfjlskdjflskjdflskjdflksjdf%0Alkjlkjlkjlkjlkjlkjlkjlsdkfjalsdkjfalskdfsd%0A%20%0AACTIVITIES%0Asjlkasjdflksadjflskjdflskjdflksjdflksjdflksd%0Asdljfkslkdfjlskdfjlskdjflskjdflskjdflksjdf%0Alkjlkjlkjlkjlkjlkjlkjlsdkfjalsdkjfalskdfsd%0A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Accordion" x="549" y="728" w="184" h="348" measuredW="150" measuredH="348" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Contact%20Information%0AHours%0AType%20of%20Daycare%0ARates%0A-%20Sub-Item%202.1%0A-%20Sub-Item%202.2%0AAge%20Range%0ANumber%20of%20Children%0ANumber%20of%20Staff%0ALanguages%20Spoken%0AYrs%20in%20Business%0ALicense%20number</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::CheckBox" x="591" y="438" w="127" h="23" measuredW="116" measuredH="22" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20to%20Favorites</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::CoverFlow" x="261" y="276" w="457" h="152" measuredW="493" measuredH="198" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Title" x="297" y="438" w="-1" h="-1" measuredW="252" measuredH="43" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Audrey%27s%20Nest</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::CheckBox" x="589" y="511" w="-1" h="-1" measuredW="139" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Upvote%20this%20daycare</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::TextInput" x="589" y="537" w="-1" h="-1" measuredW="81" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>56%20upvotes</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TextInput" x="309" y="484" w="-1" h="-1" measuredW="229" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <italic>true</italic>
+        <text>This%20daycare%20currently%20has%20openings</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::TextArea" x="252" y="697" w="282" h="246" measuredW="200" measuredH="140" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ENDORSEMENTS%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Akjlksjfdlakjsdfl%0AP.H.%205/2013%0A%20%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Akjlksjfdlakjsdfl%0AJ.L%2010/2014%0A%20%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Asjklkjasldkfjlsakdjflkjsdfljlkjasldfjkalskdjf%0Akjlksjfdlakjsdfl%0AH.M.%201/2014</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::CheckBox" x="589" y="461" w="308" h="35" measuredW="303" measuredH="22" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>FOLLOW%20%28Alert%20me%20about%20openings%20and%20events%29</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

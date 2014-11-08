@@ -1,0 +1,26 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="923" measuredH="729" mockupW="661" mockupH="715">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="262" y="14" w="661" h="715" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Parent%20Profile%20Page</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="295" y="197" w="538" h="183" measuredW="533" measuredH="111" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Daycare%20Name%5E%2C%20Level%20of%20Interest%20%5Ev%2C%20Last%20Contact%2C%20Next%20Steps%20v%2C%20Following%0AAudrey%27s%20Nest%2C%20High%2C%20Emailed%209/6%2C%20Schedule%20visit%28o%29%2C%20Yes%0AFrench%20Daycare%2C%20Medium%2C%20%2C%20%5Bx%5D%2C%20Yes%0ASally%27s%20Daycare%2C%20High%2C%20Left%20message%209/10%2C%20%5B-%5D%2C%20Yes</text>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="501" y="139" w="147" h="-1" measuredW="146" measuredH="30" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Favorite%20Daycares</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::LinkBar" x="679" y="105" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Home%2C%20Search%2C%20Sign%20Out</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
