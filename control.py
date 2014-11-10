@@ -27,23 +27,26 @@ def login_p():
 	if user: 
 		flask_session['user'] = user.id
 		flash("Login successful")
-		return redirect(url_for('search_page'))
+		return render_template('landing_pg.html', username=username)
+		# return redirect(url_for('search_page'))
 	else: 
 		flash("Username/password is invalid")
-		return redirect(url_for('home_page'))
+		# return redirect(url_for('home_page'))
 
 @app.route('/test2', methods=['POST'])
 def login_d(): 
 	username = request.form['username']
 	password = request.form['password']
-	user_obj = model.db_session.query(model.Daycare).filter_by(username=username).filter_by(password=password).first()
+	user_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
 	if user_obj: 
 		flask_session['user'] = user_obj.id
 		flash("Login successful")
-		return redirect(url_for('search_page'))
+		return render_template('testing.html', username = username)
+		# return redirect(url_for('search_page'))
 	else: 
 		flash("Username/password is invalid")
 		return redirect(url_for('home_page'))
+
 
 
 @app.route('/new_parent', methods=['POST'])
@@ -82,8 +85,8 @@ def new_daycare():
 	license_num = request.form['license_num']
 	about_us = request.form['about_us']
 
-	new_daycare = model.Daycare(username = username, password = password, biz_name = biz_name, primary_contact = primary_contact, zipcode = zipcode, neighborhood = neighborhood, address = address, phone = phone, email = email, web_url = web_url, fb_url = fb_url, yr_in_biz = yr_in_biz, capacity = capacity, num_staff = num_staff, license_num = license_num, about_us = about_us)
-	model.db_session.add(new_daycare)
+	new_center = model.Center(username = username, password = password, biz_name = biz_name, primary_contact = primary_contact, zipcode = zipcode, neighborhood = neighborhood, address = address, phone = phone, email = email, web_url = web_url, fb_url = fb_url, yr_in_biz = yr_in_biz, capacity = capacity, num_staff = num_staff, license_num = license_num, about_us = about_us)
+	model.db_session.add(new_center)
 	model.db_session.commit()
 	return render_template('testing.html', username = username)
 
@@ -96,17 +99,18 @@ def dc_signup():
 # def search_page(): 
 # 	return render_template('landing_page.html')
 
-@app.route('/search_page')
+@app.route('/search_page', methods=['POST'])
 def search_page(): 
 	zipcode = request.form['zipcode']
-	daycare_list = model.db_session.query(model.Daycare).filter_by(zipcode = zipcode).all()
-	return render_template('daycare_list_results.html', daycare_list=daycare_list)
+	daycare = model.db_session.query(model.Center).filter_by(zipcode=zipcode).first()
+	return render_template('daycare_list_results.html', daycare_obj = daycare)
 
 
-@app.route('/viewdc/<int:daycare.id>')
-def view_daycare():
-	daycare_obj = model.session.query(model.Daycare).filter_by(daycare = daycare.id).one()
-	return redirect('view_daycare_page.html', daycare_obj = daycare_obj)
+@app.route('/viewdc/<int:daycare_id>', methods=['GET','POST'])
+def view_daycare(daycare_id):
+	d = daycare_id
+	daycare_obj = model.db_session.query(model.Center).get(d)
+	return render_template('daycare_profile.html', daycare_obj = daycare_obj)
 
 
 if __name__ == "__main__":

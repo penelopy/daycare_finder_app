@@ -19,7 +19,6 @@ class Parent(Base):
 	password = Column(String(32), nullable = False)
 	zipcode = Column(String(15))
 	neighborhood = Column(String(32))
-
 class Center(Base):    
 	__tablename__ = "centers"    
 	#login info
@@ -53,12 +52,10 @@ class Center(Base):
 	activities = Column(Text)
 
 	type_of_center = relationship("Type", backref="centers")
-
 class Type(Base): #backref to Daycare
 	__tablename__ = "types_of_centers"
 	id = Column(Integer, primary_key=True, nullable=False)
 	name = Column(String(16), nullable=False) # matches to type.csv  
-
 class Photo(Base):
 	__tablename__ = "photos" 
 	id = Column(Integer, primary_key = True, nullable=False)
@@ -66,31 +63,24 @@ class Photo(Base):
 	photo_link = Column(String(100), nullable=False)
 
 	center = relationship("Center", backref="photos")
-
 class Schedule(Base): # has association table (center_schedule)
 	__tablename__ = "schedules"
 	id = Column(Integer, primary_key = True, nullable=False)
 	name = Column(String(16), nullable=False) #matches to schedule.csv    
-
-
 centers_schedules = Table('centers_schedules', Base.metadata, 
 	Column('center_schedule_id', Integer, primary_key=True, nullable=False), 
 	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
 	Column('schedule_id', Integer, ForeignKey('schedules.id'), nullable=False)
 	 )
-
 class Language(Base): # has association table (center_language)
 	__tablename__ = "languages"
 	id = Column(Integer, primary_key = True, nullable=False)
 	name = Column(String(16), nullable=False) # matches to languages.csv
-
-
 centers_languages = Table('centers_languages', Base.metadata, 
 	Column('center_language_id', Integer, primary_key=True, nullable=False), 
 	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
 	Column('language_id', Integer, ForeignKey('languages.id'), nullable=False)
 	 )
-
 class Endorsement(Base):
 	__tablename__ = "endorsements"
 	id = Column(Integer, primary_key = True, nullable=False)
@@ -100,20 +90,16 @@ class Endorsement(Base):
 
 	center = relationship("Center", backref="endorsements")
 	parent = relationship("Parent", backref="endorsements")
-
-
 upvotes = Table('upvotes', Base.metadata, 
 	Column('upvote_id', Integer, primary_key=True, nullable=False), 
 	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
 	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
 	 )
-
 followings = Table('followings', Base.metadata, 
 	Column('following_id', Integer, primary_key=True, nullable=False), 
 	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
 	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
 	 ) 
-
 class WorksheetRow(Base):    
 	__tablename__ = "worksheet_rows"
 	id = Column(Integer, primary_key = True, nullable=False)
@@ -129,19 +115,11 @@ class WorksheetRow(Base):
 def connect(): 
 	global ENGINE
 	global Session
-
 	ENGINE = create_engine("sqlite:///daycare_finder.db", echo=True)
 	Session = sessionmaker(bind=ENGINE)
-
 	return Session()
 
 db_session = connect()
-
-# def create_tables():
-#     engine = create_engine("sqlite:///daycare_finder.db", echo=True)
-#     Base.metadata.create_all(engine)
-
-
 
 def main():
     connect()

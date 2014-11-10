@@ -17,10 +17,3 @@ pasted from base.html
 
                     </ul>
                 </div> -->
-
-
-
-@app.route('/search_page')
-def search_page(): 
-	daycare_list = model.session.query(model.Daycare).filter_by(zipcode=zipcode).all()
-	return render_template('daycare_list_results.html', daycare_list=daycare_list)

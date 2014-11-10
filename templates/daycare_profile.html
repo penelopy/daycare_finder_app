@@ -19,10 +19,10 @@
 	<div class="row clearfix">
 		<div class="col-md-8 column">
 			<h2>
-				About Us
+				{{ daycare_obj.biz_name }} About Us
 			</h2>
 			<p>
-				Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+				{{ daycare_obj.about_us }}
 			</p>
 			<p>
 				<a class="btn" href="#">View details »</a>
@@ -33,16 +33,16 @@
 				Contact
 			</h2>
 			<p>
-				Phone
+				Phone: {{ daycare_obj.phone }}
 			</p>
 			<div>
-				Email
+				Email: {{ daycare_obj.email }}
 			</div>
 			<div>
-				Website
+				Website: <a href="{{ daycare_obj.web_url }}">{{ daycare_obj.web_url }}</a>
 			</div>
 			<div>
-				FB Link
+				FB Link: {{ daycare_obj.fb_url }}
 			</div>
 			
 			<p>
