@@ -19,7 +19,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 def home_page(): 
 	return render_template("login.html")		
 
-@app.route('/test1', methods=['POST'])
+@app.route('/parent', methods=['POST'])
 def login_p(): 
 	username = request.form['username']
 	password = request.form['password']
@@ -27,21 +27,19 @@ def login_p():
 	if user: 
 		flask_session['user'] = user.id
 		flash("Login successful")
-		return render_template('landing_pg.html', username=username)
-		# return redirect(url_for('search_page'))
+		return redirect(url_for('search_page'))
 	else: 
 		flash("Username/password is invalid")
 		# return redirect(url_for('home_page'))
 
-@app.route('/test2', methods=['POST'])
+@app.route('/center', methods=['POST'])
 def login_d(): 
 	username = request.form['username']
 	password = request.form['password']
 	user_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
 	if user_obj: 
 		flask_session['user'] = user_obj.id
-		flash("Login successful")
-		return render_template('testing.html', username = username)
+		return redirect(url_for('view_center', user_id=user_obj.id))
 		# return redirect(url_for('search_page'))
 	else: 
 		flash("Username/password is invalid")
@@ -66,8 +64,8 @@ def par_signup():
 	return render_template('par_signup.html')
 
 
-@app.route('/new_daycare', methods=['POST'])
-def new_daycare():
+@app.route('/new_center', methods=['POST'])
+def new_center():
 	username = request.form['username']
 	password = request.form['password']
 	biz_name = request.form['biz_name']
@@ -90,27 +88,45 @@ def new_daycare():
 	model.db_session.commit()
 	return render_template('testing.html', username = username)
 
-@app.route('/dc_signup')
-def dc_signup():
+@app.route('/center_signup')
+def center_signup():
 	return render_template('dc_signup.html')
-
-	
-# @app.route('/search_page')
-# def search_page(): 
-# 	return render_template('landing_page.html')
 
 @app.route('/search_page', methods=['POST'])
 def search_page(): 
 	zipcode = request.form['zipcode']
-	daycare = model.db_session.query(model.Center).filter_by(zipcode=zipcode).first()
-	return render_template('daycare_list_results.html', daycare_obj = daycare)
+	daycare_list = model.db_session.query(model.Center).filter_by(zipcode=zipcode).all()
+	return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
 
+@app.route('/c_register', methods=['POST'])
+def process_c_registration(): 
+	username = request.form['username']
+	password = request.form['password']
+	email = request.form['email']
+	primary_contact = request.form['primary_contact']
+	biz_name = request.form['biz_name']
 
-@app.route('/viewdc/<int:daycare_id>', methods=['GET','POST'])
-def view_daycare(daycare_id):
-	d = daycare_id
+	new_center = model.Center(username=username, password=password, email=email, primary_contact=primary_contact, biz_name=biz_name)
+	model.db_session.add(new_center)
+	model.db_session.commit()	
+	return redirect(url_for('view_center', center_id=new_center.id))
+
+@app.route('/viewcenter/<int:center_id>', methods=['GET','POST'])
+def view_center(center_id):
+	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
-	return render_template('daycare_profile.html', daycare_obj = daycare_obj)
+	return render_template('center_profile.html', daycare_obj = daycare_obj)
+
+
+# def upload_photo(): 
+# 	photo= Photo()
+
+
+# 	class Photo(Base):
+# 	__tablename__ = "photos" 
+# 	id = Column(Integer, primary_key = True, nullable=False)
+# 	center_id = Column(Integer, ForeignKey('centers.id'), nullable=False)
+# 	photo_link = Column(String(100), nullable=False)
 
 
 if __name__ == "__main__":
