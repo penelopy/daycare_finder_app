@@ -1,0 +1,163 @@
+<!-- Privately editable daycare profile page -->
+
+{% extends 'base.html' %}
+{% block head %}
+    <link href="../static/css/jumbotron.css" rel="stylesheet">
+    <link href="../static/css/grid.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <h1>
+                    <img src="{{ daycare_obj.photo }}">
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>
+                {{ daycare_obj.biz_name }} 
+            </h2>
+
+
+            <div>
+            <form action="{{ url_for('edit_center_profile', center_id = daycare_obj.id) }}" method='POST'>
+                <input type="text" name="biz_name"> <button type="submit">Edit </button>
+            </form>
+            </div>
+
+
+
+
+            <h3> About Us
+            </h3> 
+            
+                {{ daycare_obj.about_us }}
+        </div>  
+    <!-- </div> -->
+<!--    </div> -->
+    <div class="col-md-4 column">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Neighborhood
+            </a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        {{ daycare_obj.neighborhood}}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Type of Daycare
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        insert daycare types
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Hours
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        insert hours here
+      </div>
+    </div>
+  </div>
+
+
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Capacity
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+        {{ daycare_obj.capacity }}
+      </div>
+    </div>
+  </div>
+
+
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Staff information
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+      <div class="panel-body">
+        <p>Owner: {{ daycare_obj.primary_contact }} </p>
+        <p>License number: {{ daycare_obj.license_num }}</p>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Contact
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+            <p>Phone: {{ daycare_obj.phone }}</p>
+            <p>Email: {{ daycare_obj.email }}</p>
+            <p>Website: <a href="{{ daycare_obj.web_url }}">{{ daycare_obj.web_url }}</a></p>
+            <p>FB Link: {{ daycare_obj.fb_url }}</p>
+        </div>
+      </div>
+    </div>
+ 
+
+
+</div>
+
+
+    </div>
+    </div>
+</div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/collapse.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+{% endblock %}

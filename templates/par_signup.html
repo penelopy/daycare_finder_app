@@ -8,11 +8,14 @@
 {% block body %}
 
 	<div class="container"> 
-		<form class="form-register-parent" role="form" action="{{ url_for ('new_parent') }}" method="post"> 
+		<form class="form-register-parent" role="form" action="{{ url_for ('new_par_registration') }}" method="post"> 
 			<h2 "form-signin-heading"> Parent Account Registration </h2>
 				<div class="row">
 				<div class="col-md-4">
+					<input type ="first_name" class="form-control" placeholder="First Name" required autofocus name="first_name">
+					<input type ="last_name" class="form-control" placeholder="Last Name" required autofocus name="last_name">
 					<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
+					<input type="email" class="form-control" placeholder="Email" required name="email">
 					<input type="password" class="form-control" placeholder="Password" required name="password">
 
 					<input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">

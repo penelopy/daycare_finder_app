@@ -19,7 +19,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 def home_page(): 
 	return render_template("login.html")		
 
-@app.route('/parent', methods=['POST'])
+@app.route('/parent', methods=['POST']) #working Tues 11/11
 def login_p(): 
 	username = request.form['username']
 	password = request.form['password']
@@ -27,78 +27,93 @@ def login_p():
 	if user: 
 		flask_session['user'] = user.id
 		flash("Login successful")
-		return redirect(url_for('search_page'))
+		return render_template('landing_pg.html', username = user.username)
 	else: 
 		flash("Username/password is invalid")
 		# return redirect(url_for('home_page'))
 
-@app.route('/center', methods=['POST'])
+@app.route('/center', methods=['POST']) #working Tues 11/11
 def login_d(): 
 	username = request.form['username']
 	password = request.form['password']
-	user_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
-	if user_obj: 
-		flask_session['user'] = user_obj.id
-		return redirect(url_for('view_center', user_id=user_obj.id))
-		# return redirect(url_for('search_page'))
+	center_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
+	if center_obj: 
+		flask_session['user'] = center_obj.id
+		return redirect(url_for('view_center_private', center_id = center_obj.id))
 	else: 
 		flash("Username/password is invalid")
 		return redirect(url_for('home_page'))
 
-
-
-@app.route('/new_parent', methods=['POST'])
-def new_parent():
-	username = request.form['username']
-	password = request.form['password']
-	zipcode = request.form['zipcode']
-	neighborhood = request.form['neighborhood']
-	new_parent = model.Parent(username = username, password = password, zipcode = zipcode, neighborhood = neighborhood)
-	model.db_session.add(new_parent)
-	model.db_session.commit()
-	print "new parent added: ", new_parent
-	return render_template('testing.html', username = username)
-
-@app.route('/par_signup')
+@app.route('/par_signup') #working Tues 11/11
 def par_signup():
 	return render_template('par_signup.html')
 
-
-@app.route('/new_center', methods=['POST'])
-def new_center():
+@app.route('/p_register', methods=['POST']) #working Tues 11/11
+def new_par_registration():
+	first_name = request.form['first_name']
+	last_name = request.form['last_name']
 	username = request.form['username']
 	password = request.form['password']
-	biz_name = request.form['biz_name']
-	primary_contact = request.form['primary_contact']
-	zipcode = request.form['zipcode']
-	neighborhood = request.form['neighborhood']
-	address = request.form['address']
-	phone = request.form['phone']
 	email = request.form['email']
-	web_url = request.form['web_url']
-	fb_url = request.form['fb_url']
-	yr_in_biz = request.form['yr_in_biz']
-	capacity = request.form['capacity']
-	num_staff = request.form['num_staff']
-	license_num = request.form['license_num']
-	about_us = request.form['about_us']
+	zipcode = request.form['zipcode']
+	neighborhood = request.form['neighborhood']	
 
-	new_center = model.Center(username = username, password = password, biz_name = biz_name, primary_contact = primary_contact, zipcode = zipcode, neighborhood = neighborhood, address = address, phone = phone, email = email, web_url = web_url, fb_url = fb_url, yr_in_biz = yr_in_biz, capacity = capacity, num_staff = num_staff, license_num = license_num, about_us = about_us)
-	model.db_session.add(new_center)
+	new_parent = model.Parent(first_name = first_name, last_name = last_name, username = username, password = password, email = email, zipcode = zipcode, neighborhood = neighborhood)
+	model.db_session.add(new_parent)
 	model.db_session.commit()
-	return render_template('testing.html', username = username)
+	return render_template('landing_pg.html', username = new_parent.first_name)
+
+@app.route('/edit_center', methods=['POST'])#TODO using center_profile_view.html create this view. will have to update db entry. render template should show center profile page
+def edit_center_profile():
+	u = flask_session['user'][0]
+
+	# email = request.form['email']
+	# primary_contact = request.form['primary_contact']
+	biz_name = request.form['biz_name']
+	# zipcode = request.form['zipcode']
+	# neighborhood = request.form['neighborhood']
+	# address = request.form['address']
+	# phone = request.form['phone']
+	# email = request.form['email']
+	# web_url = request.form['web_url']
+	# fb_url = request.form['fb_url']
+	# yr_in_biz = request.form['yr_in_biz']
+	# capacity = request.form['capacity']
+	# num_staff = request.form['num_staff']
+	# license_num = request.form['license_num']
+	# about_us = request.form['about_us']
+
+	center_obj = model.db_session.query(model.Center).filter_by(user_id = u).one()
+	# center_obj.email = email
+	# center_obj.primary_contact = primary_contact
+	center_obj.biz_name = biz_name
+	# center_obj.zipcode = zipcode
+	# center_obj.neighborhood = neighborhood
+	# center_obj.address = address
+	# center_obj.phone = phone
+	# center_obj.email = email
+	# center_obj.web_url = web_url
+	# center_obj.fb_url = fb_url
+	# center_obj.yr_in_biz = yr_in_biz
+	# center_obj.capacity = capacity
+	# center_obj.num_staff = num_staff
+	# center_obj.license_num = license_num
+	# center_obj.about_us = about_us
+
+	model.db_session.commit()
+	return redirect(url_for('view_center_private', center_id = center_obj.id))
 
 @app.route('/center_signup')
 def center_signup():
 	return render_template('dc_signup.html')
 
-@app.route('/search_page', methods=['POST'])
+@app.route('/search_page', methods=['GET', 'POST']) #working Tues 11/11
 def search_page(): 
 	zipcode = request.form['zipcode']
 	daycare_list = model.db_session.query(model.Center).filter_by(zipcode=zipcode).all()
-	return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
+	return render_template('daycare_list_results.html', zipcode=zipcode, daycare_obj_list = daycare_list)
 
-@app.route('/c_register', methods=['POST'])
+@app.route('/c_register', methods=['POST']) # working Tues 11/11
 def process_c_registration(): 
 	username = request.form['username']
 	password = request.form['password']
@@ -109,9 +124,15 @@ def process_c_registration():
 	new_center = model.Center(username=username, password=password, email=email, primary_contact=primary_contact, biz_name=biz_name)
 	model.db_session.add(new_center)
 	model.db_session.commit()	
-	return redirect(url_for('view_center', center_id=new_center.id))
+	return redirect(url_for('view_center_private', center_id=new_center.id))
 
-@app.route('/viewcenter/<int:center_id>', methods=['GET','POST'])
+@app.route('/viewcenterpri/<int:center_id>', methods=['GET','POST'])  
+def view_center_private(center_id):
+	d = center_id
+	daycare_obj = model.db_session.query(model.Center).get(d)
+	return render_template('center_profile_private.html', daycare_obj = daycare_obj)	
+
+@app.route('/viewcenter/<int:center_id>', methods=['GET','POST']) #working Tues 11/11
 def view_center(center_id):
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
