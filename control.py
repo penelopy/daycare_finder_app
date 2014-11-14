@@ -8,12 +8,14 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
 
-# @app.before_request
-# def check_login():
-# 	user_data = flask_session.get('user')
-# 	if user_data and len(user_data) > 1:
-# 		g.user_id = user_data[0]
-# 		g.user_email = user_data[1]
+@app.before_request
+def check_login():
+	user_data = flask_session.get('user')
+	# print "user data", user_data
+	# print 'type', type(user_data)
+	if user_data:
+		g.user_id = user_data
+		# g.user_email = user_data[1]
 
 @app.route('/')
 def home_page(): 
@@ -63,45 +65,63 @@ def new_par_registration():
 	model.db_session.commit()
 	return render_template('landing_pg.html', username = new_parent.first_name)
 
+# @app.route('/get_about')
+# def get_about():
+# 	pass
+
 @app.route('/edit_center', methods=['POST'])#TODO using center_profile_view.html create this view. will have to update db entry. render template should show center profile page
 def edit_center_profile():
-	u = flask_session['user'][0]
 
-	# email = request.form['email']
-	# primary_contact = request.form['primary_contact']
-	biz_name = request.form['biz_name']
-	# zipcode = request.form['zipcode']
-	# neighborhood = request.form['neighborhood']
-	# address = request.form['address']
-	# phone = request.form['phone']
-	# email = request.form['email']
-	# web_url = request.form['web_url']
-	# fb_url = request.form['fb_url']
-	# yr_in_biz = request.form['yr_in_biz']
-	# capacity = request.form['capacity']
-	# num_staff = request.form['num_staff']
-	# license_num = request.form['license_num']
-	# about_us = request.form['about_us']
+	u = flask_session['user']
+	name = request.form.get('name')
+	element = request.form.get('id')
 
-	center_obj = model.db_session.query(model.Center).filter_by(user_id = u).one()
-	# center_obj.email = email
-	# center_obj.primary_contact = primary_contact
-	center_obj.biz_name = biz_name
-	# center_obj.zipcode = zipcode
-	# center_obj.neighborhood = neighborhood
-	# center_obj.address = address
-	# center_obj.phone = phone
-	# center_obj.email = email
-	# center_obj.web_url = web_url
-	# center_obj.fb_url = fb_url
-	# center_obj.yr_in_biz = yr_in_biz
-	# center_obj.capacity = capacity
-	# center_obj.num_staff = num_staff
-	# center_obj.license_num = license_num
-	# center_obj.about_us = about_us
+	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+
+	if element == "email": 
+		center_obj.email = name
+	elif element == "primary_contact": 
+		center_obj.primary_contact = name
+	elif element == "biz_name": 
+		center_obj.biz_name = name
+	elif element == "zipcode": 
+		center_obj.zipcode = name
+	elif element == "neighborhood": 
+		center_obj.neighborhood = name
+	elif element == "address": 
+		center_obj.address = name
+	elif element == "phone": 
+		center_obj.phone = name
+	elif element == "web_url": 
+		center_obj.web_url = name
+	elif element == "fb_url": 
+		center_obj.fb_url = name
+	elif element == "yr_in_biz": 
+		center_obj.yr_in_biz = name
+	elif element == "capacity": 
+		center_obj.capacity = name 
+	elif element == "num_staff": 
+		center_obj.num_staff = name 
+	elif element == "license_num": 
+		center_obj.license_num = name
+	elif element == "about_us": 
+		center_obj.about_us = name  		
+	model.db_session.commit()
+	return name
+
+@app.route('/edittype')
+def edit_center_type():
+	u = flask_session['user']
+	# name = request.form.get('name')
+	center_typeid = request.form.get('id')
+
+	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+
+	# if center_typeid == "one": 
+	center_obj.type_of_center_id = int(center_typeid)
 
 	model.db_session.commit()
-	return redirect(url_for('view_center_private', center_id = center_obj.id))
+	# return name
 
 @app.route('/center_signup')
 def center_signup():

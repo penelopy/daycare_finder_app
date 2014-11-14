@@ -52,6 +52,7 @@ class Center(Base):
 	activities = Column(Text)
 
 	type_of_center = relationship("Type", backref="centers")
+	
 class Type(Base): #backref to Daycare
 	__tablename__ = "types_of_centers"
 	id = Column(Integer, primary_key=True, nullable=False)

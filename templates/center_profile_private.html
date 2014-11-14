@@ -20,24 +20,15 @@
     </div>
     <div class="row">
         <div class="col-md-8">
+        <!-- <div class="test col-md-8">     -->
             <h2>
                 {{ daycare_obj.biz_name }} 
+
             </h2>
-
-
-            <div>
-            <form action="{{ url_for('edit_center_profile', center_id = daycare_obj.id) }}" method='POST'>
-                <input type="text" name="biz_name"> <button type="submit">Edit </button>
-            </form>
-            </div>
-
-
-
 
             <h3> About Us
             </h3> 
-            
-                {{ daycare_obj.about_us }}
+             <div class="edit-area" id="about_us" name="about_us" >{{ daycare_obj.about_us }}</div>
         </div>  
     <!-- </div> -->
 <!--    </div> -->
@@ -52,10 +43,9 @@
             </a>
         </h4>
     </div>
+
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        {{ daycare_obj.neighborhood}}
-      </div>
+      <div class="panel-body edit-area" id="neighborhood" name="neighborhood">{{ daycare_obj.neighborhood}}</div>
     </div>
   </div>
 
@@ -70,7 +60,21 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        insert daycare types
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Select Daycare Type <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Home Based Daycare</a></li>
+        <li><a href="#">Child Care Center</a></li>
+        <li><a href="#">Preschool</a></li>
+<!--         <li class="divider"></li>
+        <li><a href="#">Separated link</a></li> -->
+      </ul>
+    </div>        
+        
+      <!-- <div class="panel-body edit-area" id="type_of_center_id" name="type_of_center_id">Input daycare type(s)</div> -->
+
       </div>
     </div>
   </div>
@@ -158,6 +162,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/collapse.js"></script>
+    <script src="../static/js/jeditable.js"></script>
+    <script src="../static/js/custom_editing.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 {% endblock %}
