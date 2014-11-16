@@ -1,3 +1,14 @@
+.navbar-brand {
+  padding-left:30px;
+  padding-right:30px;
+}
+
+
 .col {
 background-color: none;
 }
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }

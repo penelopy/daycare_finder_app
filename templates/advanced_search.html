@@ -1,0 +1,86 @@
+<!-- Center Profile Form -->
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <link href="../static/css/grid.css" rel="stylesheet">
+    <link href="../static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container"> 
+        <form class="form-register-parent" role="form" action="{{ url_for ('process_search') }}" method="post"> 
+            <h2 "form-signin-heading"> Advanced Daycare Center Search</h2>
+                <div class="row">
+                <div class="col-md-4">
+                   <input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
+
+           <p></p>
+          Language  
+          <p></p>
+          <input type="checkbox" id="one">  English
+          <p></p>
+          <input type="checkbox" id="two">  American Sign Language
+          <p></p>
+          <input type="checkbox"id="three">  Chinese
+          <p></p>
+          <input type="checkbox"id="four">  French
+          <p></p>
+          <input type="checkbox"id="five">  German
+          <p></p>
+          <input type="checkbox"id="six">  Korean
+          <p></p>
+          <input type="checkbox"id="seven">  Spanish
+          <p></p>
+          <input type="checkbox"id="eight">  Vietnamese
+          <p></p>
+          <input type="checkbox"id="nine">  Japanese
+          <p></p>
+          <input type="checkbox" id="ten">  Farsi
+          <p></p>
+          <input type="checkbox" id="eleven">  Arabic
+          <p></p>
+          <p></p>
+          <input type="checkbox" id="eleven">  Special Needs
+          <p></p>
+          <p></p>
+          <input type="checkbox" id="eleven">  Current Openings
+          <p></p>
+          <p></p>
+            <div>
+            <p>Type of Daycare Center</p>
+            <select class='type-dropdown'>
+            <option value="1">Home Based Daycare</option>
+            <option selected="selected" value="2">Child Care Center</option>
+            <option value="3">Preschool</option>
+            </select>
+            </div>
+          
+          <p></p>
+          <p></p>
+            <div>
+            <p>Available Schedule</p>
+            <select class='type-dropdown'>
+            <option value="1">Full Time</option>
+            <option selected="selected" value="2">Part Time</option>
+            <option value="3">Drop In</option>
+            <option value="4">Weekends</option>
+            </select> 
+            </div>   
+          <p></p>
+          <p></p>        
+            <div>    
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                </div>
+                </div>
+                </div>
+        </form>
+
+    </div>
+
+
+
+{% endblock %}
+
+

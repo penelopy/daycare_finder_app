@@ -8,6 +8,27 @@ Session = None
 
 Base = declarative_base()
 
+centers_schedules = Table('centers_schedules', Base.metadata, 
+	Column('center_schedule_id', Integer, primary_key=True, nullable=False), 
+	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
+	Column('schedule_id', Integer, ForeignKey('schedules.id'), nullable=False)
+	 )
+
+upvotes = Table('upvotes', Base.metadata, 
+	Column('upvote_id', Integer, primary_key=True, nullable=False), 
+	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
+	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
+	 )
+followings = Table('followings', Base.metadata, 
+	Column('following_id', Integer, primary_key=True, nullable=False), 
+	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
+	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
+	 ) 	 
+centers_languages = Table('centers_languages', Base.metadata, 
+	Column('center_language_id', Integer, primary_key=True, nullable=False), 
+	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
+	Column('language_id', Integer, ForeignKey('languages.id'), nullable=False)
+	 )
 class Parent(Base): 
 	__tablename__ = "parents"
 
@@ -51,8 +72,9 @@ class Center(Base):
 	philosophy = Column(Text)
 	activities = Column(Text)
 
+	languages = relationship("Language", secondary = centers_languages) #this is an array
 	type_of_center = relationship("Type", backref="centers")
-	
+
 class Type(Base): #backref to Daycare
 	__tablename__ = "types_of_centers"
 	id = Column(Integer, primary_key=True, nullable=False)
@@ -68,20 +90,14 @@ class Schedule(Base): # has association table (center_schedule)
 	__tablename__ = "schedules"
 	id = Column(Integer, primary_key = True, nullable=False)
 	name = Column(String(16), nullable=False) #matches to schedule.csv    
-centers_schedules = Table('centers_schedules', Base.metadata, 
-	Column('center_schedule_id', Integer, primary_key=True, nullable=False), 
-	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
-	Column('schedule_id', Integer, ForeignKey('schedules.id'), nullable=False)
-	 )
+
 class Language(Base): # has association table (center_language)
 	__tablename__ = "languages"
 	id = Column(Integer, primary_key = True, nullable=False)
 	name = Column(String(16), nullable=False) # matches to languages.csv
-centers_languages = Table('centers_languages', Base.metadata, 
-	Column('center_language_id', Integer, primary_key=True, nullable=False), 
-	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
-	Column('language_id', Integer, ForeignKey('languages.id'), nullable=False)
-	 )
+
+	centers = relationship("Center", secondary = centers_languages)
+
 class Endorsement(Base):
 	__tablename__ = "endorsements"
 	id = Column(Integer, primary_key = True, nullable=False)
@@ -91,16 +107,7 @@ class Endorsement(Base):
 
 	center = relationship("Center", backref="endorsements")
 	parent = relationship("Parent", backref="endorsements")
-upvotes = Table('upvotes', Base.metadata, 
-	Column('upvote_id', Integer, primary_key=True, nullable=False), 
-	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
-	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
-	 )
-followings = Table('followings', Base.metadata, 
-	Column('following_id', Integer, primary_key=True, nullable=False), 
-	Column('center_id', Integer, ForeignKey('centers.id'), nullable=False),
-	Column('parent_id', Integer, ForeignKey('parents.id'), nullable=False)
-	 ) 
+
 class WorksheetRow(Base):    
 	__tablename__ = "worksheet_rows"
 	id = Column(Integer, primary_key = True, nullable=False)

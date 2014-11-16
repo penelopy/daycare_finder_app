@@ -9,42 +9,16 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 
 @app.before_request
-def check_login():
+def check_login(): #working Thurs 11/13
 	user_data = flask_session.get('user')
-	# print "user data", user_data
-	# print 'type', type(user_data)
 	if user_data:
 		g.user_id = user_data
-		# g.user_email = user_data[1]
 
-@app.route('/')
+@app.route('/') #working 
 def home_page(): 
-	return render_template("login.html")		
+	return render_template("login.html")
 
-@app.route('/parent', methods=['POST']) #working Tues 11/11
-def login_p(): 
-	username = request.form['username']
-	password = request.form['password']
-	user = model.db_session.query(model.Parent).filter_by(username=username).filter_by(password=password).first()
-	if user: 
-		flask_session['user'] = user.id
-		flash("Login successful")
-		return render_template('landing_pg.html', username = user.username)
-	else: 
-		flash("Username/password is invalid")
-		# return redirect(url_for('home_page'))
-
-@app.route('/center', methods=['POST']) #working Tues 11/11
-def login_d(): 
-	username = request.form['username']
-	password = request.form['password']
-	center_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
-	if center_obj: 
-		flask_session['user'] = center_obj.id
-		return redirect(url_for('view_center_private', center_id = center_obj.id))
-	else: 
-		flash("Username/password is invalid")
-		return redirect(url_for('home_page'))
+#PARENT PAGES	
 
 @app.route('/par_signup') #working Tues 11/11
 def par_signup():
@@ -65,73 +39,53 @@ def new_par_registration():
 	model.db_session.commit()
 	return render_template('landing_pg.html', username = new_parent.first_name)
 
-# @app.route('/get_about')
-# def get_about():
-# 	pass
+@app.route('/parent', methods=['POST']) #working Tues 11/11
+def login_p(): 
+	username = request.form['username']
+	password = request.form['password']
+	user = model.db_session.query(model.Parent).filter_by(username=username).filter_by(password=password).first()
+	if user: 
+		flask_session['user'] = user.id
+		flash("Login successful")
+		return render_template('landing_pg.html', username = user.username)
+	else: 
+		flash("Username/password is invalid")
+		# return redirect(url_for('home_page'))
 
-@app.route('/edit_center', methods=['POST'])#TODO using center_profile_view.html create this view. will have to update db entry. render template should show center profile page
-def edit_center_profile():
-
-	u = flask_session['user']
-	name = request.form.get('name')
-	element = request.form.get('id')
-
-	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-
-	if element == "email": 
-		center_obj.email = name
-	elif element == "primary_contact": 
-		center_obj.primary_contact = name
-	elif element == "biz_name": 
-		center_obj.biz_name = name
-	elif element == "zipcode": 
-		center_obj.zipcode = name
-	elif element == "neighborhood": 
-		center_obj.neighborhood = name
-	elif element == "address": 
-		center_obj.address = name
-	elif element == "phone": 
-		center_obj.phone = name
-	elif element == "web_url": 
-		center_obj.web_url = name
-	elif element == "fb_url": 
-		center_obj.fb_url = name
-	elif element == "yr_in_biz": 
-		center_obj.yr_in_biz = name
-	elif element == "capacity": 
-		center_obj.capacity = name 
-	elif element == "num_staff": 
-		center_obj.num_staff = name 
-	elif element == "license_num": 
-		center_obj.license_num = name
-	elif element == "about_us": 
-		center_obj.about_us = name  		
-	model.db_session.commit()
-	return name
-
-@app.route('/edittype')
-def edit_center_type():
-	u = flask_session['user']
-	# name = request.form.get('name')
-	center_typeid = request.form.get('id')
-
-	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-
-	# if center_typeid == "one": 
-	center_obj.type_of_center_id = int(center_typeid)
-
-	model.db_session.commit()
-	# return name
-
-@app.route('/center_signup')
-def center_signup():
-	return render_template('dc_signup.html')
+@app.route('/search')
+def search():
+	return render_template('landing_pg.html')
 
 @app.route('/search_page', methods=['GET', 'POST']) #working Tues 11/11
 def search_page(): 
 	zipcode = request.form['zipcode']
 	daycare_list = model.db_session.query(model.Center).filter_by(zipcode=zipcode).all()
 	return render_template('daycare_list_results.html', zipcode=zipcode, daycare_obj_list = daycare_list)
+
+@app.route('/adv_searchpage', methods=['GET', 'POST'])
+def advanced_search(): 
+	return render_template('advanced_search.html')
+
+@app.route('/process_adv_search')
+def process_search():
+	pass
+
+@app.route('/parent_worksheet')
+def parent_worksheet(): 
+	return render_template('parent_wksht.html')	
+
+@app.route('/viewcenter/<int:center_id>', methods=['GET','POST']) #working Tues 11/11
+def view_center(center_id):
+	d = center_id
+	daycare_obj = model.db_session.query(model.Center).get(d)
+	return render_template('center_profile.html', daycare_obj = daycare_obj)
+
+
+# USER - DAYCARE CENTER
+
+@app.route('/center_signup') #working Sat 11/15
+def center_signup():
+	return render_template('dc_signup.html')
 
 @app.route('/c_register', methods=['POST']) # working Tues 11/11
 def process_c_registration(): 
@@ -144,19 +98,78 @@ def process_c_registration():
 	new_center = model.Center(username=username, password=password, email=email, primary_contact=primary_contact, biz_name=biz_name)
 	model.db_session.add(new_center)
 	model.db_session.commit()	
-	return redirect(url_for('view_center_private', center_id=new_center.id))
+	return redirect(url_for('view_center_private', center_id=new_center.id))	
 
-@app.route('/viewcenterpri/<int:center_id>', methods=['GET','POST'])  
+@app.route('/center', methods=['POST']) #working Tues 11/11
+def login_d(): 
+	username = request.form['username']
+	password = request.form['password']
+	center_obj = model.db_session.query(model.Center).filter_by(username=username).filter_by(password=password).first()
+	if center_obj: 
+		flask_session['user'] = center_obj.id
+		return redirect(url_for('view_center_private', center_id = center_obj.id))
+	else: 
+		flash("Username/password is invalid")
+		return redirect(url_for('home_page'))	
+
+@app.route('/viewcenterpri/<int:center_id>', methods=['GET','POST'])  #working Sat 11/15
 def view_center_private(center_id):
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
 	return render_template('center_profile_private.html', daycare_obj = daycare_obj)	
 
-@app.route('/viewcenter/<int:center_id>', methods=['GET','POST']) #working Tues 11/11
-def view_center(center_id):
-	d = center_id
-	daycare_obj = model.db_session.query(model.Center).get(d)
-	return render_template('center_profile.html', daycare_obj = daycare_obj)
+@app.route('/edit_center', methods=['POST'])#working Sat 11/15
+def edit_center_profile():
+
+	u = flask_session['user']
+	name = request.form.get('name')
+	element = request.form.get('id')
+	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+	if element == "email": 
+		center_obj.email = name
+	elif element == "primary_contact": 
+		center_obj.primary_contact = name
+	elif element == "zipcode": 
+		center_obj.zipcode = name
+	elif element == "neighborhood": 
+		center_obj.neighborhood = name
+	elif element == "hours": 
+		center_obj.opening_time = name
+	elif element == "phone": 
+		center_obj.phone = name
+	elif element == "website": 
+		center_obj.web_url = name
+	elif element == "fb_url": 
+		center_obj.fb_url = name
+	elif element == "capacity": 
+		center_obj.capacity = name  
+	elif element == "license_num": 
+		center_obj.license_num = name
+	elif element == "about_us": 
+		center_obj.about_us = name  		
+	model.db_session.commit()
+	return name
+
+@app.route('/edittype', methods=['POST']) #TODO - incomplete
+def edit_center_type():
+	u = flask_session['user']
+	center_typeid = request.form.get('id')
+	print "type id", center_typeid
+	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+	center_obj.type_of_center_id = center_typeid
+
+	model.db_session.commit()
+	return "Hi"
+
+
+
+
+
+
+
+
+
+
 
 
 # def upload_photo(): 

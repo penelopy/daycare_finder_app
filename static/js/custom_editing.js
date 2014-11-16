@@ -9,8 +9,20 @@ $(document).ready(function() {
          id        : 'id',
          name      : 'name'
      });
+     });
+
+    $('.type-dropdown').change(function() {
+        var clicked_id = $(".type-dropdown option:selected").val();
 
 
+        // $.post("/edittype", function(this.id) {
+        console.log(clicked_id);
+        $.ajax({
+          type: "POST",
+          url: '/edittype',
+          data: {id: clicked_id}
+        });
+        });
 
 var makeEditable = function(divClass, id, name) {
 
@@ -23,12 +35,18 @@ var makeEditable = function(divClass, id, name) {
          id        : id,
          name      : name
      });
-};
 
 
 makeEditable("edit-area", "divOne", "about_us"); // -> <div class="1"><input type="textarea" name="nameEdit" id="divOne"></input></div> 
-// makeEditable("2", "divThree", "locationEdit")
-// makeEditable("3", "divTwo", "hoursEdit")
+makeEditable("edit-area", "divTwo", "neighborhood");
+makeEditable("edit-area", "divThree", "hours");
+makeEditable("edit-area", "divFour", "capacity");
+makeEditable("edit-area", "divFive", "primary_contact");
+makeEditable("edit-area", "divSix", "license_num");
+makeEditable("edit-area", "divSeven", "phone");
+makeEditable("edit-area", "divEight", "email");
+makeEditable("edit-area", "divNine", "website");
+makeEditable("edit-area", "divTen", "fburl");
+};
 
-});
 
