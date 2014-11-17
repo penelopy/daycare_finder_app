@@ -120,6 +120,8 @@ def login_d():
 def view_center_private(center_id):
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
+	# return render_template('jedit.html', daycare_obj = daycare_obj)	
+
 	return render_template('center_profile_private.html', daycare_obj = daycare_obj)	
 
 @app.route('/edit_center', methods=['POST'])#working Sat 11/15
@@ -166,25 +168,6 @@ def edit_center_type():
 	return "Hi"
 
 
-
-
-
-
-
-
-
-
-
-
-# def upload_photo(): 
-# 	photo= Photo()
-
-
-# 	class Photo(Base):
-# 	__tablename__ = "photos" 
-# 	id = Column(Integer, primary_key = True, nullable=False)
-# 	center_id = Column(Integer, ForeignKey('centers.id'), nullable=False)
-# 	photo_link = Column(String(100), nullable=False)
 
 
 if __name__ == "__main__":

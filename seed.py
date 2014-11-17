@@ -145,16 +145,16 @@ def load_center_languages(session):
     for line in f:
         fields = line.split(',')  
 
-        print "id", fields[0]
-        print "center", fields[1]
-        print "language", fields[2]
+        # object-oriented way
+        center_id, lang_id = fields[1:]
+        center = model.db_session.query(model.Center).filter_by(id=center_id).one()
+        language = model.db_session.query(model.Language).filter_by(id=lang_id).one()
+        center.languages.append(language)
 
-
-        newtype = model.Type(id=fields[0],
-                        center_id=fields[1], 
-                        language_id=fields[2])
-
-        session.add(newtype)
+        # lower-level, direct-to-db (Joel suggested- I didn't try)
+        # from SQLAlchemy.sql.expression import insert
+        # insert("center_languages", values=fields)
+        # insert(model.center_languages, values=fields)
 
 def load_center_schedule(session):
     f = open('seed_data/center_schedule.csv','r')
@@ -164,15 +164,10 @@ def load_center_schedule(session):
     for line in f:
         fields = line.split(',')  
 
-        print "id", fields[0]
-        print "center", fields[1]
-        print "schedule", fields[2]
-
-        newtype = model.Type(id=fields[0],
-                        center_id=fields[1], 
-                        schedule_id=fields[2])
-
-        session.add(newtype)
+        # lower-level, direct-to-db (Joel suggested- I didn't try)
+        from SQLAlchemy.sql.expression import insert
+        insert("center_schedules", values=fields)
+        insert(model.centers_schedules, values=fields)
 
 def main(session):
     # load_centers(session)
@@ -181,7 +176,7 @@ def main(session):
     # load_schedules(session)
     # load_types(session)
     # load_photos(session)
-    load_center_languages(session)
+    # load_center_languages(session)
     load_center_schedule(session)
     session.commit()
 

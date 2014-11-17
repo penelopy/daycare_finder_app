@@ -74,11 +74,20 @@
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
           <select class='type-dropdown'>
+            <script>console.log("type" + {{ daycare_obj.type_of_center_id }})</script>
           {% if daycare_obj.type_of_center_id == 1 %}
             <option selected="1" value="1">Home Based Daycare</option>
+            <option value="2">Child Care Center</option>
+            <option value="3">Preschool</option>
+
           {% elif daycare_obj.type_of_center_id == 2 %}
+            <option value="1">Home Based Daycare</option>
             <option selected="2" value="2">Child Care Center</option>
+            <option value="3">Preschool</option>
+
           {% elif daycare_obj.type_of_center_id == 3 %}
+            <option value="1">Home Based Daycare</option>
+            <option value="2">Child Care Center</option>
             <option selected="3" value="3">Preschool</option>
           {% endif %}
           </select>
@@ -185,7 +194,7 @@
     </div>
     </div>
 </div>
-</div>
+<!-- </div> -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
