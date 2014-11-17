@@ -16,12 +16,12 @@ def check_login(): #working Thurs 11/13
 
 @app.route('/') #working 
 def home_page(): 
-	return render_template("login.html")
+	return render_template("index2.html")
 
 #PARENT PAGES	
 
-@app.route('/par_signup') #working Tues 11/11
-def par_signup():
+@app.route('/par_signin') #working Tues 11/11
+def par_signin():
 	return render_template('par_signup.html')
 
 @app.route('/p_register', methods=['POST']) #working Tues 11/11

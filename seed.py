@@ -3,15 +3,10 @@ import model
 import csv
 
 def load_centers(session): 
-    # f = open('seed_data/centers.csv','rb')
 
     with open('seed_data/centers.csv', 'rU') as csvfile:
         datareader = csv.reader(csvfile, delimiter=',', dialect=csv.excel_tab)
         for fields in datareader:
-
-    # lines = f.readlines()
-    # for line in lines:
-    #     fields = line.split(',')
 
             if fields[12] == "":
                 fields[12] = 3
@@ -62,9 +57,6 @@ def load_centers(session):
 
             session.add(newcenter)
 
-    # f.close()
-
-
 def load_parents(session):
     f = open('seed_data/parents.csv','r')
     f = f.read().split("\r")
@@ -102,7 +94,6 @@ def load_languages(session):
 
     f.close()
 
-
 def load_schedules(session):
     f = open('seed_data/schedule.csv','r')
 
@@ -133,12 +124,65 @@ def load_types(session):
 
     f.close()
 
+def load_photos(session):
+    f = open('seed_data/photos.csv','r')
+
+    f = f.read().split("\r")
+
+    for line in f:
+        fields = line.split(',')    
+
+        newphoto = model.Photo(id=fields[0], 
+                        center_id=fields[1], 
+                        photo_link=fields[2])  
+        session.add(newphoto)
+
+def load_center_languages(session):
+    f = open('seed_data/center_languages.csv','r')
+
+    f = f.read().split("\r")
+
+    for line in f:
+        fields = line.split(',')  
+
+        print "id", fields[0]
+        print "center", fields[1]
+        print "language", fields[2]
+
+
+        newtype = model.Type(id=fields[0],
+                        center_id=fields[1], 
+                        language_id=fields[2])
+
+        session.add(newtype)
+
+def load_center_schedule(session):
+    f = open('seed_data/center_schedule.csv','r')
+
+    f = f.read().split("\r")
+
+    for line in f:
+        fields = line.split(',')  
+
+        print "id", fields[0]
+        print "center", fields[1]
+        print "schedule", fields[2]
+
+        newtype = model.Type(id=fields[0],
+                        center_id=fields[1], 
+                        schedule_id=fields[2])
+
+        session.add(newtype)
+
 def main(session):
-    load_centers(session)
+    # load_centers(session)
     # load_parents(session)
     # load_languages(session)
     # load_schedules(session)
     # load_types(session)
+    # load_photos(session)
+    load_center_languages(session)
+    load_center_schedule(session)
     session.commit()
 
 if __name__ == "__main__":

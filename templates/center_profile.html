@@ -1,23 +1,50 @@
 <!-- Publicly viewable daycare profile page -->
 
-{% extends 'base.html' %}
+{% extends 'base_old.html' %}
 {% block head %}
     <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
     <link href="../static/css/grid.css" rel="stylesheet">
     <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/css/carousel.css">
 
 {% endblock %}
 
 {% block body %}
 
-<div class="container">
+<!-- <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<div>
 					<img class="displayed" src="../static/img/audrey11.jpg" style="height:45%">
 			</div>
 		</div>
-	</div>
+	</div> -->
+
+
+    <div class="container2">
+        <div class="header2"><h2> {{ daycare_obj.biz_name }} </h2></div>
+        <button id="prev">Prev</button>
+        <button id="next">Next</button>
+        <div id="slider">
+        {% for photo in daycare_obj.photos %}
+            <li><img  src="{{ photo.photo_link }}" style="height:95%"></li>
+        {% endfor %}
+        </div>
+
+        <ul id="navigation">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+
+
+
+
 	<div class="row">
 		<div class="col-md-8">
 			<h2>
@@ -141,12 +168,16 @@
 	</div>
 </div>
 
-    <!-- Bootstrap core JavaScript
+    <!-- JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+       <!-- // <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/collapse.js"></script>
+    <script src="../static/js/carousel_2.js"></script> 
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- // <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
 {% endblock %}

@@ -1,5 +1,5 @@
 
-{% extends 'base.html' %}
+{% extends 'base_old.html' %}
 
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
@@ -11,10 +11,10 @@
 	<div class="container"> 
 
 		<form class="form-search-daycare" role="form" action="{{ url_for ('search_page') }}" method="post"> 
-            Hi {{ username }}
                 <div class="row">
                 <div class="col-md-4">
-        			<h2 "form-signin-heading"> Search for daycare by zipcode </h2>
+        			<h2 "form-signin-heading">Simple Search</h2>
+                    <h3 "form-signin-heading">Search by zipcode</h3>
         			<input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
         			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                 </div>

@@ -1,0 +1,84 @@
+<!-- Parents - base.html -->
+
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Little Turtle's</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="../static/css/signin.css" rel="stylesheet"> -->
+    <script src="../static/js/ie-emulation-modes-warning.js"></script>
+
+    <style>
+    #registration-link{
+        text-align: center;
+    }
+
+    </style>
+        {% block head %}{% endblock %}
+
+    </head>
+
+    <body>
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Little Turtles</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="{{ url_for('search') }}">Simple Search</a></li>
+              <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
+              <li><a href="{{ url_for('parent_worksheet') }}">Parent Worksheet</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ url_for('par_signin') }}">Parent Sign In</a></li>
+                  <li><a href="#">Daycare Center Sign In</a></li>
+                  <li><a href="#">Create an Account</a></li>
+                </ul>
+              </li>
+            </ul>
+<!--             <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+              <li><a href="../navbar-static-top/">Static top</a></li>
+              <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+            </ul> -->
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <ul class="flashes">
+                <li>{{message}}</li>
+            </ul>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
