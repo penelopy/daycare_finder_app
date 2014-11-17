@@ -43,20 +43,20 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Little Turtles</a>
+            <a class="navbar-brand" href="{{ url_for('home_page') }}">Little Turtles</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="{{ url_for('home_page') }}">Home</a></li>
               <li><a href="{{ url_for('search') }}">Simple Search</a></li>
               <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
               <li><a href="{{ url_for('parent_worksheet') }}">Parent Worksheet</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{ url_for('par_signin') }}">Parent Sign In</a></li>
-                  <li><a href="#">Daycare Center Sign In</a></li>
-                  <li><a href="#">Create an Account</a></li>
+                  <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                  <li><a href="{{ url_for('par_signup') }}">Create an Account: Parents</a></li>
+                  <li><a href="{{ url_for('center_signup') }}">Create an Account: Daycare Centers</a></li>
                 </ul>
               </li>
             </ul>
