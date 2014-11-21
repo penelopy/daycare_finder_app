@@ -28,7 +28,7 @@ def load_centers(session):
 
                 # title = title.decode("latin-1")
 
-            newcenter = model.Center(id = fields[0],
+            newcenter = model.Center(
                             username= fields[1],
                             email = fields[2],
                             password = fields[3],
@@ -165,19 +165,19 @@ def load_center_schedule(session):
         fields = line.split(',')  
 
         # lower-level, direct-to-db (Joel suggested- I didn't try)
-        from SQLAlchemy.sql.expression import insert
-        insert("center_schedules", values=fields)
-        insert(model.centers_schedules, values=fields)
+        # from SQLAlchemy.sql.expression import insert
+        # insert("center_schedules", values=fields)
+        # insert(model.centers_schedules, values=fields)
 
 def main(session):
-    # load_centers(session)
+    load_centers(session)
     # load_parents(session)
     # load_languages(session)
     # load_schedules(session)
     # load_types(session)
     # load_photos(session)
     # load_center_languages(session)
-    load_center_schedule(session)
+    # load_center_schedule(session)
     session.commit()
 
 if __name__ == "__main__":

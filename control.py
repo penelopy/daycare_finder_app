@@ -60,19 +60,126 @@ def login_p():
 def search():
 	return render_template('landing_pg.html')
 
-@app.route('/search_page', methods=['GET', 'POST']) #working Tues 11/11
+@app.route('/search_page', methods=['GET', 'POST']) #updated and working Tues 11/18
 def search_page(): 
-	zipcode = request.form['zipcode']
-	daycare_list = model.db_session.query(model.Center).filter_by(zipcode=zipcode).all()
-	return render_template('daycare_list_results.html', zipcode=zipcode, daycare_obj_list = daycare_list)
+	if request.form['zipcode']: 
+		zipcode = request.form['zipcode']		
+		daycare_list = model.db_session.query(model.Center).filter_by(zipcode=zipcode).all()
+		return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
 
-@app.route('/adv_searchpage', methods=['GET', 'POST'])
+	else:
+		address = request.form['address']
+		daycare_list = model.db_session.query(model.Center).filter_by(address=address).all()
+		return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
+
+@app.route('/adv_searchpage')
 def advanced_search(): 
 	return render_template('advanced_search.html')
 
-@app.route('/process_adv_search')
+
+
+@app.route('/process_search', methods=['POST'])
 def process_search():
-	pass
+
+	if request.form:
+		form_data = request.form 
+		print "form_data", form_data
+
+		
+		print "cope", request.form.get('copeT')
+		langs = []
+		dc_types = []
+		sch = []
+		center_lang_list = []
+		s_need = []
+		c_openings = []
+		center_sch_list = []
+		center_open_list = []
+		center_needs_list = []
+
+		print "keys", request.form.keys()
+
+		for key in request.form.keys():
+			if key[0:4] == "lang":
+				langs.append(key[4:])
+			if key[0:4] == "dtyp":
+				dc_types.append(key[4:])
+			if key[0:4] == "sche":
+				sch.append(key[4:])
+			if key[0:4] == "need":
+				s_need.append(key[4:])
+			if key[0:4] == "cope":
+				print "\n\n\nhello"
+				c_openings.append(key[4:])
+
+
+		print "language", langs
+		print "types", dc_types
+		print "schedules", sch
+		print "special needs", s_need
+		print "curr openings", c_openings
+
+		if len(langs) > 0: 
+			for lang in langs:
+				center_tup_list = model.db_session.query(model.centers_languages).filter_by(language_id = lang).all()
+				center_list = []
+				for a_tuple in center_tup_list: 
+					center_list.append(a_tuple[1])
+			for center in center_list: 
+				center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
+				center_lang_list.append(center_obj)
+
+		if len(dc_types) > 0: 
+			for item in dc_types: 
+				center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
+				
+		if len(sch) > 0: 
+			for item in sch: 
+				center_tup_list = model.db_session.query(model.centers_schedules).filter_by(schedule_id = item).all()
+				center_list = []
+				for a_tuple in center_tup_list: 
+					center_list.append(a_tuple[1])
+			for center in center_list: 
+				center_obj = model.db_session.query(model.Center).filter_by(id = center).one()	
+				center_sch_list.append(center_obj)
+
+
+		return render_template('no_results.html', center_lang_list = center_lang_list, center_type_list = center_type_list, center_sch_list = center_sch_list)
+
+
+		# 	if len(sch) > 0: 	
+		# 		return render_template('daycare_list_results.html', center_sch_list = center_sch_list)
+		# 	else: 
+		# 		return render_template('no_results.html')
+
+		# if len(c_openings) > 0: 
+		# 	center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
+		# 	return render_template('daycare_list_results.html', center_open_list = center_open_list)
+
+		# if len(s_need) > 0: 
+		# 	center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()		
+		# 	return render_template('daycare_list_results.html', center_needs_list = center_needs_list)
+
+		return "Hi"
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/processtype', methods=['POST']) 
+def process_center_type():
+	value = request.form.get('id')
+	print "value", value
+	centers = model.db_session.query(model.Center).filter_by(type_of_center_id= value).all()
+	return render_template('daycare_list_results.html', daycare_obj_list = centers)
 
 @app.route('/parent_worksheet')
 def parent_worksheet(): 
@@ -156,7 +263,19 @@ def edit_center_profile():
 	model.db_session.commit()
 	return name
 
-@app.route('/edittype', methods=['POST']) #TODO - incomplete
+@app.route('/editlang')
+def edit_lang():
+	u = flask_session['user']
+	data = request.form.get('formData')
+	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+	for id in data: 
+		print "id", id
+		center_obj.languages = id 
+	# model.db_session.commit()
+
+	return #keep checkboxes on screen
+
+@app.route('/edittype', methods=['POST']) #TODO - is this complete?
 def edit_center_type():
 	u = flask_session['user']
 	center_typeid = request.form.get('id')

@@ -10,75 +10,92 @@
 {% block body %}
 
     <div class="container"> 
-        <form class="form-register-parent" role="form" action="{{ url_for ('process_search') }}" method="post"> 
-            <h2 "form-signin-heading"> Advanced Daycare Center Search</h2>
+        <form class="form-register-parent" action="/process_search" method="post"> 
+            <h2 "form-signin-heading"> Advanced Search</h2>
                 <div class="row">
-                <div class="col-md-4">
-                   <input type ="zipcode" class="form-control" placeholder="Zipcode" required autofocus name="zipcode">
+    
+                    <div class="col-md-4"> 
+                      <strong>Language</strong>
+                      <p></p>
+                      <input type="checkbox" id="lang1" name="lang1">  English
+                      <p></p>
+                      <input type="checkbox" id="lang2" name="lang2">  American Sign Language
+                      <p></p>
+                      <input type="checkbox" id="lang3" name="lang3">  Chinese
+                      <p></p>
+                      <input type="checkbox" id="lang4" name="lang4">  French
+                      <p></p>
+                      <input type="checkbox" id="lang5" name="lang5">  German
+                      <p></p>
+                      <input type="checkbox" id="lang6" name="lang6">  Korean
+                      <p></p>
+                      <input type="checkbox" id="lang7" name="lang7">  Spanish
+                      <p></p>
+                      <input type="checkbox"id="lang8" name="lang8">  Vietnamese
+                      <p></p>
+                      <input type="checkbox" id="lang9" name="lang9">  Japanese
+                      <p></p>
+                      <input type="checkbox" id="lang10" name="lang10">  Farsi
+                      <p></p>
+                      <input type="checkbox" id="lang11" name="lang11">  Arabic
+                    </div>
+         
+                    <div class="col-md-4">
+                      Zipcode
+                      <input type ="zipcode" class="form-control" autofocus name="zipcode"> 
+                    </div>
+                      
 
-           <p></p>
-          Language  
-          <p></p>
-          <input type="checkbox" id="one">  English
-          <p></p>
-          <input type="checkbox" id="two">  American Sign Language
-          <p></p>
-          <input type="checkbox"id="three">  Chinese
-          <p></p>
-          <input type="checkbox"id="four">  French
-          <p></p>
-          <input type="checkbox"id="five">  German
-          <p></p>
-          <input type="checkbox"id="six">  Korean
-          <p></p>
-          <input type="checkbox"id="seven">  Spanish
-          <p></p>
-          <input type="checkbox"id="eight">  Vietnamese
-          <p></p>
-          <input type="checkbox"id="nine">  Japanese
-          <p></p>
-          <input type="checkbox" id="ten">  Farsi
-          <p></p>
-          <input type="checkbox" id="eleven">  Arabic
-          <p></p>
-          <p></p>
-          <input type="checkbox" id="eleven">  Special Needs
-          <p></p>
-          <p></p>
-          <input type="checkbox" id="eleven">  Current Openings
-          <p></p>
-          <p></p>
-            <div>
-            <p>Type of Daycare Center</p>
-            <select class='type-dropdown'>
-            <option value="1">Home Based Daycare</option>
-            <option selected="selected" value="2">Child Care Center</option>
-            <option value="3">Preschool</option>
-            </select>
-            </div>
-          
-          <p></p>
-          <p></p>
-            <div>
-            <p>Available Schedule</p>
-            <select class='type-dropdown'>
-            <option value="1">Full Time</option>
-            <option selected="selected" value="2">Part Time</option>
-            <option value="3">Drop In</option>
-            <option value="4">Weekends</option>
-            </select> 
-            </div>   
-          <p></p>
-          <p></p>        
-            <div>    
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                </div>
-                </div>
-                </div>
+
+                    <div class="col-md-4"> 
+                      <input type="checkbox" id="copeT" name="copeT">  Current Openings
+                    </div>
+
+                    <div class="col-md-4"> 
+                      <strong>Preferred Schedule</strong><br>
+                      <input type="checkbox" id="sche1" name="sche1">  Full Time  
+                      <input type="checkbox" id="sche2" name="sche2">  Part Time<br>
+                      <input type="checkbox" id="sche3" name="sche3">  Drop In  
+                      <input type="checkbox" id="sche4" name="sche4">  Weekends 
+                    </div> 
+
+                    <div class="col-md-4"> 
+                    <strong>Type of Daycare Center</strong><br>
+                      <input type="checkbox" id="dtyp1" name="dtyp1">  Home Based Daycare<br>
+                      <input type="checkbox" id="dtyp2" name="dtyp2">  Child Care Center<br>
+                      <input type="checkbox" id="dtyp3" name="dtyp3">  Preschool<br>
+                    </div>
+                    
+
+                    <div class="col-md-4"> 
+                      <p></p>
+                      <p></p>
+                        <input type="checkbox" id="need" name="needT">  Special Needs
+                      <p></p>
+                      <p></p>
+                    </div>
+
+                    <div class="col-md-4"> 
+                       <input class="btn btn-sm btn-primary btn-block" value="submit" type="submit"></input>
+                    </div>
         </form>
+         
+        <div>    
+      </div>
+      </div>
+      </div>
+
 
     </div>
-
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/collapse.js"></script>
+    <script src="../static/js/jeditable.js"></script>
+    <script src="../static/js/custom_editing.js"></script>
+    <script src="../static/js/carousel_2.js"></script> 
 
 
 {% endblock %}

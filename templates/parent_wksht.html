@@ -36,8 +36,8 @@
           <th class="text-nowrap"></th>
           <td>Audrey's Daycare</td>
           <td>1</td>
-          <td>Emailed on Friday, waiting to hear</td>
-          <td>Schedule visit asap</td>
+          <td class="edit-area" id="contacted" name="contacted">Emailed on Friday, waiting to hear</td>
+          <td class="edit-area" id="notes" name="notes">>Schedule visit asap</td>
           <td>Yes</td>
         </tr>
         <tr>
@@ -73,5 +73,17 @@
     </table>
   </div>
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/collapse.js"></script>
+    <script src="../static/js/jeditable.js"></script>
+    <script src="../static/js/custom_editing.js"></script>
+    <script src="../static/js/carousel_2.js"></script> 
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 {% endblock %}

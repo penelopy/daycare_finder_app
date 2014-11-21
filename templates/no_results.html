@@ -1,0 +1,82 @@
+
+{% extends 'base_old.html' %}
+
+{% block body %}
+
+<!--     <h3><em>Bummer. No results match your search criteria. Please try a new search.</em></h3> -->
+
+    <div class="col-md-8 column">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            LANGUAGE: These daycare centers match your language criteria <span aria-hidden="true"></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo"> 
+    <div class="panel-body"> 
+        {% for center_obj in center_lang_list %}
+        <div>    
+            <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            TYPE of Daycare Center: These daycare centers match your 'daycare type' criteria <span aria-hidden="true"></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo"> 
+        <div class="panel-body"> 
+            {% for center_obj in center_type_list %}
+                <div>
+                <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            SCHEDULE: These daycare centers match your schedule preferences <span aria-hidden="true"></span>
+            </a>
+        </h4>
+    </div>
+<div id="collapseThree" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree"> 
+    <div class="panel-body"> 
+        {% for center_obj in center_sch_list %}
+        <div>
+            <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+       </div>
+       {% endfor %} 
+    </div>
+</div>
+</div>
+
+</div>   
+</div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/collapse.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+{% endblock %}

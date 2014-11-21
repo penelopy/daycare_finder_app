@@ -2,21 +2,21 @@
 {% extends 'base_old.html' %}
 {% block body %}
 
-        <h3>Daycare centers(s) in zipcode: {{ zipcode }}</h3>
+        <h3>Daycare Center(s):</h3>
 
     {% for daycare_obj in daycare_obj_list %}
 
 <div class="container"> 
-    <!-- Daycare:  {{ daycare_obj.biz_name}}  -->
+
     <div>
-        <h3>
+        <h4>
             <a href="{{ url_for ('view_center', center_id = daycare_obj.id) }}"> {{ daycare_obj.biz_name}} </a>
-        </h3>
+        </h4>
     </div>
 </div>
 
-    {% endfor %}
 
+{% endfor %}
 
 {% endblock %}
 

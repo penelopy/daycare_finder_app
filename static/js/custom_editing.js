@@ -15,14 +15,33 @@ $(document).ready(function() {
     $('.type-dropdown').change(function() {
         var clicked_id = $(".type-dropdown option:selected").val();
 
-    // $.post("/edittype", function(this.id) {
-        console.log(clicked_id);
         $.ajax({
           type: "POST",
           url: '/edittype',
           data: {id: clicked_id}
       });
-    });
+     });
+
+    // $('.type-dropdown-search').change(function() {
+    //     var clicked_id = $(".type-dropdown option:selected").val();
+
+    // // $.post("/edittype", function(this.id) {
+    //     console.log(clicked_id);
+    //     $.ajax({
+    //       type: "POST",
+    //       url: '/processtype',
+    //       data: {id: clicked_id}
+    //   });
+    // });
+
+// $('.checkbox').checked(function) { 
+//     var checked_box_id = $(".checkbox").val():
+//     $.ajax({
+//         type: "POST",
+//         url: '/process_adv_search',
+//         data: {id: checked_box_id}
+//     });
+// });
 
     var makeEditable = function(divClass, id, name) {
 
@@ -37,7 +56,7 @@ $(document).ready(function() {
      });
     };
 
-    makeEditable("edit-area", "divOne", "about_us"); // -> <div class="1"><input type="textarea" name="nameEdit" id="divOne"></input></div> 
+    makeEditable("edit-area", "divOne", "about_us"); 
     makeEditable("edit-area", "divTwo", "neighborhood");
     makeEditable("edit-area", "divThree", "hours");
     makeEditable("edit-area", "divFour", "capacity");
