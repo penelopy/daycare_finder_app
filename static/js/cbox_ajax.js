@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        $('.dropdown_box').submit(function(event) {
+        $('.btn-primary').submit(function(event) {
             event.preventDefault();
                 getNotifications();
         });
@@ -15,7 +15,7 @@ $(document).ready(function() {
     document.form["8"].checked,
     document.form["9"].checked,
     document.form["10"].checked,
-    document.form["11"].checked
+    document.form["11"].checked;
 
     getNotifications();
 

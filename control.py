@@ -91,6 +91,7 @@ def process_search():
 	center_zipcode_list = []
 	center_type_list = []
 	center_city_list = []
+	results_dict = {}
 
 	for key in request.form.keys():
 		if key[0:4] == "lang":
@@ -107,10 +108,16 @@ def process_search():
 	if request.form.get('zipcode'):
 		zipcode = request.form.get('zipcode')
 		center_zipcode_list = model.db_session.query(model.Center).filter_by(zipcode = zipcode).all()
+		for center in center_zipcode_list: 
+		# 	print "center", center.id	
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if request.form.get('city'):
 		address = request.form.get('city')
 		center_city_list = model.db_session.query(model.Center).filter_by(address = address).all()
+		for center in center_city_list: 
+		# 	print "center", center.id
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(langs) > 0: 
 		for lang in langs:
@@ -121,11 +128,16 @@ def process_search():
 		for center in center_list: 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_lang_list.append(center_obj)
-			compiled_results_list.append(center_lang_list)
+			for center in center_lang_list: 
+			# 	print "center", center.id
+				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(dc_types) > 0: 
 		for item in dc_types: 
 			center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
+			for center in center_type_list: 
+			# 	print "center", center.id
+				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(sch) > 0: 
 		for item in sch: 
@@ -136,13 +148,22 @@ def process_search():
 		for center in center_list: 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()	
 			center_sch_list.append(center_obj)
-			compiled_results_list.append(center_sch_list)
+			for center in center_sch_list: 
+			# 	print "center", center.id
+				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(c_openings) > 0: 
 		center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
+		for center in center_open_list: 
+		# 	print "center", center.id	
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(s_need) > 0: 
 		center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()
+		for center in center_needs_list: 
+			# print "center", center.id
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1	
+	print "dict", results_dict
 
 	return render_template('adv_results.html', center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
 
@@ -236,19 +257,23 @@ def edit_center_profile():
 	model.db_session.commit()
 	return name
 
-@app.route('/editlang')
-def edit_lang():
-	u = flask_session['user']
-	data = request.form.get('formData')
-	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-	for id in data: 
-		print "id", id
-		center_obj.languages = id 
-	# model.db_session.commit()
+# @app.route('/editlang', methods=['POST'])
+# def edit_lang():
+# 	u = flask_session['user']
+# 	id = request.form.get('id')
+# 	name = request.form.get('name')
+# 	print "id", id
+# 	print "name", name
 
-	return #keep checkboxes on screen
+# 	# center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+# 	# for id in data: 
+# 	# 	print "id", id
+# 	# 	center_obj.languages = id 
+# 	# model.db_session.commit()
 
-@app.route('/edittype', methods=['POST']) #TODO - is this complete?
+# 	return "Hi"
+
+@app.route('/edittype', methods=['POST']) #working Fri 11/21
 def edit_center_type():
 	u = flask_session['user']
 	center_typeid = request.form.get('id')
