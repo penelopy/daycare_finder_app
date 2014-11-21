@@ -76,102 +76,75 @@ def search_page():
 def advanced_search(): 
 	return render_template('advanced_search.html')
 
-
-
 @app.route('/process_search', methods=['POST'])
 def process_search():
 
-	if request.form:
-		form_data = request.form 
-		print "form_data", form_data
+	langs = []
+	dc_types = []
+	sch = []
+	center_lang_list = []
+	s_need = []
+	c_openings = []
+	center_sch_list = []
+	center_open_list = []
+	center_needs_list = []
+	center_zipcode_list = []
+	center_type_list = []
+	center_city_list = []
 
-		
-		print "cope", request.form.get('copeT')
-		langs = []
-		dc_types = []
-		sch = []
-		center_lang_list = []
-		s_need = []
-		c_openings = []
-		center_sch_list = []
-		center_open_list = []
-		center_needs_list = []
+	for key in request.form.keys():
+		if key[0:4] == "lang":
+			langs.append(key[4:])
+		if key[0:4] == "dtyp":
+			dc_types.append(key[4:])
+		if key[0:4] == "sche":
+			sch.append(key[4:])
+		if key[0:4] == "need":
+			s_need.append(key[4:])
+		if key[0:4] == "cope":
+			c_openings.append(key[4:])
 
-		print "keys", request.form.keys()
+	if request.form.get('zipcode'):
+		zipcode = request.form.get('zipcode')
+		center_zipcode_list = model.db_session.query(model.Center).filter_by(zipcode = zipcode).all()
 
-		for key in request.form.keys():
-			if key[0:4] == "lang":
-				langs.append(key[4:])
-			if key[0:4] == "dtyp":
-				dc_types.append(key[4:])
-			if key[0:4] == "sche":
-				sch.append(key[4:])
-			if key[0:4] == "need":
-				s_need.append(key[4:])
-			if key[0:4] == "cope":
-				print "\n\n\nhello"
-				c_openings.append(key[4:])
+	if request.form.get('city'):
+		address = request.form.get('city')
+		center_city_list = model.db_session.query(model.Center).filter_by(address = address).all()
 
+	if len(langs) > 0: 
+		for lang in langs:
+			center_tup_list = model.db_session.query(model.centers_languages).filter_by(language_id = lang).all()
+			center_list = []
+			for a_tuple in center_tup_list: 
+				center_list.append(a_tuple[1])
+		for center in center_list: 
+			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
+			center_lang_list.append(center_obj)
+			compiled_results_list.append(center_lang_list)
 
-		print "language", langs
-		print "types", dc_types
-		print "schedules", sch
-		print "special needs", s_need
-		print "curr openings", c_openings
+	if len(dc_types) > 0: 
+		for item in dc_types: 
+			center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
 
-		if len(langs) > 0: 
-			for lang in langs:
-				center_tup_list = model.db_session.query(model.centers_languages).filter_by(language_id = lang).all()
-				center_list = []
-				for a_tuple in center_tup_list: 
-					center_list.append(a_tuple[1])
-			for center in center_list: 
-				center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
-				center_lang_list.append(center_obj)
+	if len(sch) > 0: 
+		for item in sch: 
+			center_tup_list = model.db_session.query(model.centers_schedules).filter_by(schedule_id = item).all()
+			center_list = []
+			for a_tuple in center_tup_list: 
+				center_list.append(a_tuple[1])
+		for center in center_list: 
+			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()	
+			center_sch_list.append(center_obj)
+			compiled_results_list.append(center_sch_list)
 
-		if len(dc_types) > 0: 
-			for item in dc_types: 
-				center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
-				
-		if len(sch) > 0: 
-			for item in sch: 
-				center_tup_list = model.db_session.query(model.centers_schedules).filter_by(schedule_id = item).all()
-				center_list = []
-				for a_tuple in center_tup_list: 
-					center_list.append(a_tuple[1])
-			for center in center_list: 
-				center_obj = model.db_session.query(model.Center).filter_by(id = center).one()	
-				center_sch_list.append(center_obj)
+	if len(c_openings) > 0: 
+		center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
 
+	if len(s_need) > 0: 
+		center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()
 
-		return render_template('no_results.html', center_lang_list = center_lang_list, center_type_list = center_type_list, center_sch_list = center_sch_list)
-
-
-		# 	if len(sch) > 0: 	
-		# 		return render_template('daycare_list_results.html', center_sch_list = center_sch_list)
-		# 	else: 
-		# 		return render_template('no_results.html')
-
-		# if len(c_openings) > 0: 
-		# 	center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
-		# 	return render_template('daycare_list_results.html', center_open_list = center_open_list)
-
-		# if len(s_need) > 0: 
-		# 	center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()		
-		# 	return render_template('daycare_list_results.html', center_needs_list = center_needs_list)
-
-		return "Hi"
-
-
-
-
-
-
-
-
-
-
-
+	return render_template('adv_results.html', center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
 
 
 @app.route('/processtype', methods=['POST']) 
