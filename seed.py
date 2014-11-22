@@ -151,26 +151,30 @@ def load_center_languages(session):
         language = model.db_session.query(model.Language).filter_by(id=lang_id).one()
         center.languages.append(language)
 
-        # lower-level, direct-to-db (Joel suggested- I didn't try)
-        # from SQLAlchemy.sql.expression import insert
-        # insert("center_languages", values=fields)
-        # insert(model.center_languages, values=fields)
 
-def load_center_schedule(session):
-    f = open('seed_data/center_schedule.csv','r')
+def load_endorsements(session):
+    f = open('seed_data/endorsements.csv','r')
 
     f = f.read().split("\r")
 
     for line in f:
-        fields = line.split(',')  
+        fields = line.split(',')    
 
-        # lower-level, direct-to-db (Joel suggested- I didn't try)
-        # from SQLAlchemy.sql.expression import insert
-        # insert("center_schedules", values=fields)
-        # insert(model.centers_schedules, values=fields)
+        # print fields[0]
+        # print fields[1]
+
+        # print fields[2]
+        # print fields[3]
+
+
+        newendorse = model.Endorsement(id=fields[0], 
+                        daycare_id=fields[1], 
+                        parent_id =fields[2], 
+                        endorsement = fields[3])  
+        session.add(newendorse)
 
 def main(session):
-    load_centers(session)
+    # load_centers(session)
     # load_parents(session)
     # load_languages(session)
     # load_schedules(session)
@@ -178,6 +182,7 @@ def main(session):
     # load_photos(session)
     # load_center_languages(session)
     # load_center_schedule(session)
+    load_endorsements(session)
     session.commit()
 
 if __name__ == "__main__":

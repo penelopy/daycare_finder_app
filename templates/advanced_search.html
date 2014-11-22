@@ -5,84 +5,95 @@
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
     <link href="../static/css/signin.css" rel="stylesheet">
-{% endblock %}
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">
+
+  {% endblock %}
 
 {% block body %}
 
     <div class="container"> 
         <form class="form-register-parent" action="/process_search" method="post"> 
-            <h2 "form-signin-heading"> Advanced Search</h2>
+            <h1 "form-signin-heading"> Advanced Search</h1>
                 <div class="row">
+                   <div class="col-md-4">
+                      <strong><h4>City</h4></strong>
+                      <input type ="address" class="form-control" autofocus name="address"> 
+                    <!-- </div> -->
+                      <p></p>
+                      <p></p>
+                    <!-- <div class="col-md-4"> -->
+                      <strong><h4>Zipcode</h4></strong>
+                      <input type ="zipcode" class="form-control" autofocus name="zipcode"> 
+<!--                     </div>
+                      
+                    <div class="col-md-4"> --> 
+                      <p></p>
+                      <p></p>
+                      <h4><input type="checkbox" id="copeT" name="copeT">  <strong>Currently Has Openings</strong></h4>
+<!--                     </div>
+
+                    <div class="col-md-4">  -->
+                      <p></p>
+                      <p></p> 
+                    <strong><h4>Type of Daycare Center</h4></strong>
+                      <p><input type="checkbox" id="dtyp1" name="dtyp1">  Home Based Daycare</p>
+                      <p><input type="checkbox" id="dtyp2" name="dtyp2">  Child Care Center<br></p>
+                      <p><input type="checkbox" id="dtyp3" name="dtyp3">  Preschool<br></p>
+<!--                     </div>
+
+                    <div class="col-md-4">  -->
+                      <p></p>
+                      <p></p>
+ <p></p>
+                      <p></p> 
+<!-- 
+                    <div class="col-md-4">  -->
+                      <strong><h4>Preferred Schedule</h4></strong>
+                      <p><input type="checkbox" id="sche1" name="sche1">  Full Time</p>  
+                      <p><input type="checkbox" id="sche2" name="sche2">  Part Time</p>
+                      <p><input type="checkbox" id="sche3" name="sche3">  Drop In</p>  
+                      <p><input type="checkbox" id="sche4" name="sche4">  Weekends</p> 
+                    <!-- </div>  -->
+                      <p></p>
+                      <p></p>
+                       <p></p>
+                      <p></p> 
+                    </div>
+
+
     
                     <div class="col-md-4"> 
-                      <strong>Language</strong>
+                      <strong><h4>Language(s) Spoken</h4></strong>
                       <p></p>
-                      <input type="checkbox" id="lang1" name="lang1">  English
+                      <p><input type="checkbox" id="lang1" name="lang1">  English</p>
                       <p></p>
-                      <input type="checkbox" id="lang2" name="lang2">  American Sign Language
+                      <p><input type="checkbox" id="lang2" name="lang2">  American Sign Language<p>
                       <p></p>
-                      <input type="checkbox" id="lang3" name="lang3">  Chinese
+                      <p><input type="checkbox" id="lang3" name="lang3">  Chinese<p>
                       <p></p>
-                      <input type="checkbox" id="lang4" name="lang4">  French
+                      <p><input type="checkbox" id="lang4" name="lang4">  French<p>
                       <p></p>
-                      <input type="checkbox" id="lang5" name="lang5">  German
+                      <p><input type="checkbox" id="lang5" name="lang5">  German</p>
                       <p></p>
-                      <input type="checkbox" id="lang6" name="lang6">  Korean
+                      <p><input type="checkbox" id="lang6" name="lang6">  Korean</p>
                       <p></p>
-                      <input type="checkbox" id="lang7" name="lang7">  Spanish
+                      <p><input type="checkbox" id="lang7" name="lang7">  Spanish<p>
                       <p></p>
-                      <input type="checkbox" id="lang8" name="lang8">  Vietnamese
+                      <p><input type="checkbox" id="lang8" name="lang8">  Vietnamese</p>
                       <p></p>
-                      <input type="checkbox" id="lang9" name="lang9">  Japanese
+                      <p><input type="checkbox" id="lang9" name="lang9">  Japanese</p>
                       <p></p>
-                      <input type="checkbox" id="lang10" name="lang10">  Farsi
+                      <p><input type="checkbox" id="lang10" name="lang10">  Farsi</p>
                       <p></p>
-                      <input type="checkbox" id="lang11" name="lang11">  Arabic
-                    </div>
-         
-                   <div class="col-md-4">
-                      City
-                      <input type ="address" class="form-control" autofocus name="address"> 
-                    </div>
-
-                    <div class="col-md-4">
-                      Zipcode
-                      <input type ="zipcode" class="form-control" autofocus name="zipcode"> 
-                    </div>
-                      
-
-
-                    <div class="col-md-4"> 
-                      <input type="checkbox" id="copeT" name="copeT">  Current Openings
-                    </div>
-
-                    <div class="col-md-4"> 
-                      <strong>Preferred Schedule</strong><br>
-                      <input type="checkbox" id="sche1" name="sche1">  Full Time  
-                      <input type="checkbox" id="sche2" name="sche2">  Part Time<br>
-                      <input type="checkbox" id="sche3" name="sche3">  Drop In  
-                      <input type="checkbox" id="sche4" name="sche4">  Weekends 
-                    </div> 
-
-                    <div class="col-md-4"> 
-                    <strong>Type of Daycare Center</strong><br>
-                      <input type="checkbox" id="dtyp1" name="dtyp1">  Home Based Daycare<br>
-                      <input type="checkbox" id="dtyp2" name="dtyp2">  Child Care Center<br>
-                      <input type="checkbox" id="dtyp3" name="dtyp3">  Preschool<br>
-                    </div>
-                    
-
-                    <div class="col-md-4"> 
+                      <p><input type="checkbox" id="lang11" name="lang11">  Arabic</p>
                       <p></p>
                       <p></p>
-                        <input type="checkbox" id="need" name="needT">  Special Needs
-                      <p></p>
-                      <p></p>
-                    </div>
-
-                    <div class="col-md-4"> 
-                       <input class="btn btn-sm btn-primary btn-block" value="submit" type="submit"></input>
-                    </div>
+                       <p></p>
+                      <p></p> 
+                       <p><input class="btn btn-sm btn-primary btn-block" value="Submit" type="Submit"></input></p>
+                    <!-- </div> -->
         </form>
          
         <div>    

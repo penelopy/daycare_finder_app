@@ -19,33 +19,29 @@
             Daycare Name
           </th>
           <th>
-            Level of Interest (1-5)          
-          </th>
-          <th>
             Last Contact Date
           </th>
           <th>
             Notes
           </th>
-          <th>
-            Following
-          </th>
         </tr>
       </thead>
       <tbody>
         <tr>
+      {% for row in wksht_obj_list %}
+
           <th class="text-nowrap"></th>
           <td>Audrey's Daycare</td>
           <td>1</td>
-          <td class="edit-area" id="contacted" name="contacted">Emailed on Friday, waiting to hear</td>
+          <td class="edit-area" id="interest" name="interest">Emailed on Friday, waiting to hear</td>
           <td class="edit-area" id="notes" name="notes">Schedule visit asap</td>
-          <td>Yes</td>
+<!--           <td>Yes</td> -->
         </tr>
         <tr>
         <th class="text-nowrap"></th>
-          <td> </td>
-          <td> </td>
-          <td> </td>
+          <td> {{ row.id }} </td>
+          <td> {{ row.level_of_interest }} </td>
+          <td> {{ row.notes }}</td>
           <td> </td>
           <td> </td>
         </tr>
@@ -69,6 +65,8 @@
           <td> </td>
           <td> </td>
           <td> </td>
+        {% endfor %}
+
         </tr>
       </tbody>
     </table>

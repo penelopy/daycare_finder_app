@@ -1,0 +1,38 @@
+
+{% extends 'base_old.html' %}
+{% block head %}
+    <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
+    <link href="../static/css/grid.css" rel="stylesheet">
+    <link href="../static/css/signin.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/css/carousel.css">    
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container"> 
+        <form class="form-register-parent" role="form" action="{{ url_for ('process_endorsement') }}" method="post"> 
+            <h2 "form-signin-heading"> Write an Endorsement </h2>
+                <div class="row">
+                <div class="col-md-4" name="james">
+                        Daycare Center: 
+                    <input type ="endorsement" class="form-control" placeholder="Tell us about your experience with this daycare." required autofocus name="endorsement">
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                </div>
+                </div>
+        </form>
+
+    </div>
+
+
+
+{% endblock %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>

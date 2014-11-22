@@ -92,6 +92,10 @@ def process_search():
 	center_type_list = []
 	center_city_list = []
 	results_dict = {}
+	results_list = []
+	match_all_list = []
+	num_criteria_selected = 0
+	no_matches = ""
 
 	for key in request.form.keys():
 		if key[0:4] == "lang":
@@ -106,20 +110,23 @@ def process_search():
 			c_openings.append(key[4:])
 
 	if request.form.get('zipcode'):
+		num_criteria_selected += 1
 		zipcode = request.form.get('zipcode')
 		center_zipcode_list = model.db_session.query(model.Center).filter_by(zipcode = zipcode).all()
 		for center in center_zipcode_list: 
 		# 	print "center", center.id	
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
-	if request.form.get('city'):
-		address = request.form.get('city')
+	if request.form.get('address'):
+		num_criteria_selected += 1
+		address = request.form.get('address')
 		center_city_list = model.db_session.query(model.Center).filter_by(address = address).all()
 		for center in center_city_list: 
 		# 	print "center", center.id
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(langs) > 0: 
+		num_criteria_selected += 1
 		for lang in langs:
 			center_tup_list = model.db_session.query(model.centers_languages).filter_by(language_id = lang).all()
 			center_list = []
@@ -133,6 +140,7 @@ def process_search():
 				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(dc_types) > 0: 
+		num_criteria_selected += 1
 		for item in dc_types: 
 			center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
 			for center in center_type_list: 
@@ -140,32 +148,52 @@ def process_search():
 				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(sch) > 0: 
+		num_criteria_selected += 1
 		for item in sch: 
 			center_tup_list = model.db_session.query(model.centers_schedules).filter_by(schedule_id = item).all()
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
+			print "center_list", center_list
 		for center in center_list: 
-			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()	
+		# 	print "center", center 
+			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_sch_list.append(center_obj)
-			for center in center_sch_list: 
-			# 	print "center", center.id
-				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
+		# 	print "list = ", center_sch_list
+			# if len(center_sch_list) > 0: 
+			# 	for center in center_sch_list: 
+			# 		print "center", center 
+			# 		results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(c_openings) > 0: 
+		num_criteria_selected += 1	
 		center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
 		for center in center_open_list: 
 		# 	print "center", center.id	
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(s_need) > 0: 
+		num_criteria_selected += 1		
 		center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()
 		for center in center_needs_list: 
 			# print "center", center.id
-			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1	
-	print "dict", results_dict
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
-	return render_template('adv_results.html', center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
+	for key, value in results_dict.iteritems():
+		results_list.append(key)
+
+		if value == num_criteria_selected: 
+			center_obj = model.db_session.query(model.Center).filter_by(id = key).one()	
+
+			match_all_list.append(center_obj)
+
+	if len(match_all_list) > 0: 
+		no_matches = 1
+		# no_matches = "No daycare centers match all of your criteria. Review the sections below to find daycares that meet some of your criteria."
+		# print "results list", results_list	
+	# print "dict", results_dict
+
+	return render_template('adv_results.html', no_matches = no_matches, match_all_list = match_all_list, center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
 
 
 @app.route('/processtype', methods=['POST']) 
@@ -184,6 +212,29 @@ def view_center(center_id):
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
 	return render_template('center_profile.html', daycare_obj = daycare_obj)
+
+# @app.route('/parent_wksht')
+# def process_par_wksht():
+# 	u = flask_session['user']
+# 	name = request.form.get('name')
+# 	element = request.form.get('id')
+# 	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(id = u).one()
+# 	if name == "interest": 
+# 		wksht_obj.interest = interest
+# 	elif name == "notes": 
+# 		wksht_obj.notes = notes	
+
+
+# @app.route('/wksht_daycare_name', methods=['POST']) #working Fri 11/21
+# def select_daycare_name():
+# 	u = flask_session['user']
+	# center_typeid = request.form.get('id')
+	# print "type id", center_typeid
+	# center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+	# center_obj.type_of_center_id = center_typeid
+
+	# model.db_session.commit()
+	# return "Hi"
 
 
 # USER - DAYCARE CENTER
@@ -221,8 +272,6 @@ def login_d():
 def view_center_private(center_id):
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
-	# return render_template('jedit.html', daycare_obj = daycare_obj)	
-
 	return render_template('center_profile_private.html', daycare_obj = daycare_obj)	
 
 @app.route('/edit_center', methods=['POST'])#working Sat 11/15
@@ -284,7 +333,30 @@ def edit_center_type():
 	model.db_session.commit()
 	return "Hi"
 
+@app.route('/endorse_form', methods=['POST'])
+def write_endorse(): 
+	print "request", request.form
+	id = request.form.get('name')
+	print "id", id
+	# return "Hi"
+	# center_obj = model.db_session.query(model.Center).filter_by(id = id).one()
 
+	return render_template('endorsement_form.html')
+
+@app.route('/process_endorse', methods=['POST'])
+def process_endorsement(): 
+	u = flask_session['user']
+	name = request.form.get('name')
+	endorsement= request.form.get('endorsement')
+
+	e_obj = model.db_session.query(model.Endorsement).filter_by(id = name).one()
+
+	e_obj.daycare_id = name
+	e_obj.parent_id = u
+	e_obj.endorsement = endorsement
+
+	model.db_session.commit()
+	return render_template('/')
 
 
 if __name__ == "__main__":
