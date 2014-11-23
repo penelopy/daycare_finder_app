@@ -34,7 +34,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -47,7 +47,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="{{ url_for('home_page') }}">Home</a></li>
+              <li><a href="{{ url_for('home_page') }}">Home</a></li>
               <li><a href="{{ url_for('search') }}">Simple Search</a></li>
               <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
               <li><a href="{{ url_for('parent_worksheet') }}">Parent Worksheet</a></li>
@@ -60,11 +60,6 @@
                 </ul>
               </li>
             </ul>
-<!--             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-              <li><a href="../navbar-static-top/">Static top</a></li>
-              <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-            </ul> -->
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>

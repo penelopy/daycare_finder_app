@@ -3,20 +3,23 @@
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
     <link href="../static/css/signin.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 
 	<div class="container"> 
 		<form class="form-register-parent" role="form" action="{{ url_for ('process_c_registration') }}" method="post"> 
-			<h2 "form-signin-heading"> Daycare Center Account Registration </h2>
+			<h2 "form-signin-heading"> Daycare Center Registration </h2>
 				<div class="row">
 				<div class="col-md-4">
-					<input type ="username" class="form-control" placeholder="Username" required autofocus name="username">
-					<input type ="email" class="form-control" placeholder="Email" required autofocus name="email">
-					<input type="password" class="form-control" placeholder="Password" required name="password">
-					<input type ="biz_name" class="form-control" placeholder="Business name" required autofocus name="biz_name">
-					<input type ="primary_contact" class="form-control" placeholder="Primary contact name" required autofocus name="primary_contact">
+					<p><input type ="username" class="form-control" placeholder="Username" required autofocus name="username"></p>
+					<p><input type ="email" class="form-control" placeholder="Email" required autofocus name="email"></p>
+					<p><input type="password" class="form-control" placeholder="Password" required name="password"></p>
+					<p><input type ="biz_name" class="form-control" placeholder="Business name" required autofocus name="biz_name"></p>
+					<p><input type ="primary_contact" class="form-control" placeholder="Primary contact name" required autofocus name="primary_contact"></p>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 				</div>
 				</div>

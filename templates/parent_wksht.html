@@ -3,13 +3,17 @@
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
     <link href="../static/css/signin.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">
+
 {% endblock %}
 
 {% block body %}
 
-  <h3 id="grid-options">Parent Worksheet</h3>
-  <p>Make notes about daycares that interest you</p>
-  <p class="glyphicon glyphicon-pencil">Click to edit table</p>
+  <h2 id="grid-options">Parent Worksheet</h2>
+  <p>Make notes about daycares that interest you</p> 
+  <!-- <p class="glyphicon glyphicon-pencil">Click to edit table</p> -->
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -28,45 +32,32 @@
       </thead>
       <tbody>
         <tr>
-      {% for row in wksht_obj_list %}
-
-          <th class="text-nowrap"></th>
-          <td>Audrey's Daycare</td>
-          <td>1</td>
+          <!-- <th class="text-nowrap"></th> -->
+          <td class="glyphicon glyphicon-pencil"></td>
+          <td class="edit-area" id="dc_name" name="dc_name">Audrey's Daycare</td>
           <td class="edit-area" id="interest" name="interest">Emailed on Friday, waiting to hear</td>
           <td class="edit-area" id="notes" name="notes">Schedule visit asap</td>
-<!--           <td>Yes</td> -->
+        </tr>
+
+        <tr>
+      <!-- <th class="text-nowrap"></th> -->
+          <td class="glyphicon glyphicon-pencil"></td>
+          <td class="edit-area" id="dc_name" name="dc_name"> </td>
+          <td class="edit-area" id="interest" name="interest"> </td>
+          <td class="edit-area" id="notes" name="notes"> </td>
         </tr>
         <tr>
-        <th class="text-nowrap"></th>
-          <td> {{ row.id }} </td>
-          <td> {{ row.level_of_interest }} </td>
-          <td> {{ row.notes }}</td>
-          <td> </td>
-          <td> </td>
+      <!-- <th class="text-nowrap"></th> -->
+          <td class="glyphicon glyphicon-pencil"></td>
+          <td class="edit-area" id="dc_name" name="dc_name"> </td>
+          <td class="edit-area" id="interest" name="interest"> </td>
+          <td class="edit-area" id="notes" name="notes"> </td>
         </tr>
-      <th class="text-nowrap"></th>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-      <th class="text-nowrap"></th>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-       <th class="text-nowrap"></th>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        {% endfor %}
-
+       <!-- <th class="text-nowrap"></th> -->
+         <td class="glyphicon glyphicon-pencil"></td>
+          <td class="edit-area" id="dc_name" name="dc_name"> </td>
+          <td class="edit-area" id="interest" name="interest"> </td>
+          <td class="edit-area" id="notes" name="notes"> </td>
         </tr>
       </tbody>
     </table>

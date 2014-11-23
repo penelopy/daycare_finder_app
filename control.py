@@ -213,28 +213,35 @@ def view_center(center_id):
 	daycare_obj = model.db_session.query(model.Center).get(d)
 	return render_template('center_profile.html', daycare_obj = daycare_obj)
 
-# @app.route('/parent_wksht')
-# def process_par_wksht():
-# 	u = flask_session['user']
-# 	name = request.form.get('name')
-# 	element = request.form.get('id')
-# 	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(id = u).one()
-# 	if name == "interest": 
-# 		wksht_obj.interest = interest
-# 	elif name == "notes": 
-# 		wksht_obj.notes = notes	
+@app.route('/parent_wksht')
+def process_par_wksht():
+	u = flask_session['user']
+	# name = request.form.get('interest')
+	# element = request.form.get('id')
+	# print "name", name
+	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(id = u).one()
+	if request.form.get('interest'):
+		wksht_obj.level_of_interest = interest
+	if request.form.get('notes'):
+		wksht_obj.notes = notes
+	if request.form.get('dc_name'):
+		wksht_obj.daycare_name = dc_name		
+
+	model.db_session.commit()
+	return "Hi"
+
 
 
 # @app.route('/wksht_daycare_name', methods=['POST']) #working Fri 11/21
 # def select_daycare_name():
 # 	u = flask_session['user']
-	# center_typeid = request.form.get('id')
-	# print "type id", center_typeid
-	# center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-	# center_obj.type_of_center_id = center_typeid
+# 	center_typeid = request.form.get('id')
+# 	print "type id", center_typeid
+# 	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
+# 	center_obj.type_of_center_id = center_typeid
 
-	# model.db_session.commit()
-	# return "Hi"
+# 	model.db_session.commit()
+# 	return "Hi"
 
 
 # USER - DAYCARE CENTER

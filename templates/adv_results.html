@@ -1,6 +1,14 @@
 
 {% extends 'base_old.html' %}
 
+{% block head %}
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">
+
+{% endblock %}
+
+
 {% block body %}
 
 
@@ -10,21 +18,21 @@
 
         <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             MATCHES: These daycares match all the selected criteria <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
         </div>
         <div id="collapseOne" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> 
             <div class="panel-body"> 
                     {% for center_obj in match_all_list %}
                 <div>
-                    <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                    <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
                </div>
                    {% endfor %} 
                    {% if no_matches == 0 %}
-                    No daycare centers match all of your criteria. Review the sections below to find daycares that meet some of your criteria.
+                    <p>No daycare centers match all of your criteria. Review the sections below to find daycares that meet some of your criteria.</p>
                    {% endif %}
             </div>
         </div>
@@ -32,17 +40,17 @@
 
         <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             CITY: These daycares are located in the selected city <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
         </div>
         <div id="collapseTwo" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo"> 
             <div class="panel-body"> 
                     {% for center_obj in center_city_list %}
             <div>
-                <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
            </div>
                    {% endfor %} 
             </div>
@@ -51,17 +59,17 @@
 
         <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
             CURRENT OPENINGS: These daycares currently have openings <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
         </div>
         <div id="collapseThree" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree"> 
             <div class="panel-body"> 
                 {% for center_obj in center_open_list %}
                 <div>
-                    <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                    <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
                </div>
                {% endfor %} 
             </div>
@@ -70,17 +78,17 @@
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFour">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
             LANGUAGE: These daycare centers match your language criteria <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
     </div>
     <div id="collapseFour" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour"> 
     <div class="panel-body"> 
         {% for center_obj in center_lang_list %}
         <div>    
-            <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+            <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
         </div>
         {% endfor %}
     </div>
@@ -91,17 +99,17 @@
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFive">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
             SCHEDULE: These daycare centers match your schedule preferences <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
     </div>
         <div id="collapseFive" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive"> 
             <div class="panel-body"> 
                 {% for center_obj in center_sch_list %}
                 <div>
-                    <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                    <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
                </div>
                {% endfor %} 
             </div>
@@ -110,17 +118,17 @@
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingSix">
-    <h4 class="panel-title">
+    <p class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
         SPECIAL NEEDS: These daycare centers have indicated they work with children with special needs <span aria-hidden="true"></span>
         </a>
-    </h4>
+    </p>
     </div>
     <div id="collapseSix" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix"> 
         <div class="panel-body"> 
             {% for center_obj in center_needs_list %}
             <div>
-                <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
            </div>
            {% endfor %} 
         </div>
@@ -129,17 +137,17 @@
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingSeven">
-        <h4 class="panel-title">
+        <p class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
-            TYPE of Daycare Center: These daycare centers match your 'daycare type' criteria <span aria-hidden="true"></span>
+            TYPE of Daycare Center: These daycare centers match the selected 'daycare type' <span aria-hidden="true"></span>
             </a>
-        </h4>
+        </p>
     </div>
     <div id="collapseSeven" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSeven"> 
         <div class="panel-body"> 
             {% for center_obj in center_type_list %}
                 <div>
-                <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
                 </div>
             {% endfor %}
         </div>
@@ -148,17 +156,17 @@
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingEight">
-    <h4 class="panel-title">
+    <p class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
         ZIPCODE: These daycare centers are located in the zipcode selected <span aria-hidden="true"></span>
         </a>
-    </h4>
+    </p>
     </div>
     <div id="collapseEight" class="container panel-collapse collapse in" role="tabpanel" aria-labelledby="headingEight"> 
         <div class="panel-body"> 
             {% for center_obj in center_zip_list %}
             <div>
-                <a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a>
+                <p><a href="{{ url_for ('view_center', center_id = center_obj.id) }}"> {{ center_obj.biz_name}} </a></p>
            </div>
            {% endfor %} 
         </div>

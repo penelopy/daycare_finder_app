@@ -22,17 +22,31 @@ $(document).ready(function() {
       });
      });
 
-    makeEditable("edit-area", "divOne", "about_us");
-    makeEditable("edit-area", "divTwo", "neighborhood");
-    makeEditable("edit-area", "divThree", "hours");
-    makeEditable("edit-area", "divFour", "capacity");
-    makeEditable("edit-area", "divFive", "primary_contact");
-    makeEditable("edit-area", "divSix", "license_num");
-    makeEditable("edit-area", "divSeven", "phone");
-    makeEditable("edit-area", "divEight", "email");
-    makeEditable("edit-area", "divNine", "website");
-    makeEditable("edit-area", "divTen", "fburl");
-    makeEditable("edit-area", "contacted", "contacted");
+    var makeEditable = function(divClass, id, name, url) {
+
+        $('.' + divClass).editable(url, {
+         type      : 'textarea',
+         cancel    : 'Cancel',
+         submit    : 'OK',
+         indicator : '<img src="img/indicator.gif">',
+         tooltip   : 'Click to edit...',
+         id        : id,
+         name      : name
+     });
+    };
+
+
+    makeEditable("edit-area", "divOne", "about_us", '/edit_center');
+    makeEditable("edit-area", "divTwo", "neighborhood", '/edit_center');
+    makeEditable("edit-area", "divThree", "hours", '/edit_center');
+    makeEditable("edit-area", "divFour", "capacity", '/edit_center');
+    makeEditable("edit-area", "divFive", "primary_contact", '/edit_center');
+    makeEditable("edit-area", "divSix", "license_num", '/edit_center');
+    makeEditable("edit-area", "divSeven", "phone", '/edit_center');
+    makeEditable("edit-area", "divEight", "email", '/edit_center');
+    makeEditable("edit-area", "divNine", "website", '/edit_center');
+    makeEditable("edit-area", "divTen", "fburl", '/edit_center');
+    makeEditable("edit-area", "contacted", "contacted", '/process_par_wksht');
 });
 
 

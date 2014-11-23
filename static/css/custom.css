@@ -27,28 +27,42 @@ h2 {
     line-height: 55px;
 }
 
-h4 {
+h4, th {
     font-family: 'Corben', Georgia, Times, serif;
     font-size: 15px;
     line-height: 12px;
 }
  
-p, li, button {
+p, li, button, td, a {
     font-family: 'Nobile', Helvetica, Arial, sans-serif;
     font-size: 13px;
     line-height: 25px;
 }
 
-.col-md-4, .col-md-8 {
+body { 
     background-color: #c5d08a;
+
+}
+
+/*a { 
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    line-height: 25px;
+
+}*/
+
+.col-md-4, .col-md-8 {
+    background-color: #f5f5f5;
+
+    /*background-color: #c5d08a;*/
+    /*background: url(../img/brushed.png) repeat 0 0;*/
+
     /*background-color: #d6df93;*/
 }
 
-/*.navbar {
-    background-color: #ed7a66;
-}*/
+.table {
+        background-color: #c0c0c0;
 
-body { 
-    background: url(../img/brushed.png) repeat 0 0;
+/*    background-color: #808080;
+*/}
 
-}

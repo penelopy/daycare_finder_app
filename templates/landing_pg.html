@@ -3,6 +3,9 @@
 
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">   
     <!-- <link href="../static/css/signin.css" rel="stylesheet"> -->
 {% endblock %}
 
@@ -12,13 +15,14 @@
 
 		<form class="form-search-daycare" role="form" action="{{ url_for ('search_page') }}" method="post"> 
                 <div class="row">
+                <h2 "form-signin-heading">Search by zipcode or city</h2>
                 <div class="col-md-4">
         			<!-- <h2 "form-signin-heading">Simple Search</h2> -->
-                    <h3 "form-signin-heading">Search by zipcode</h3>
-        			<input type ="zipcode" class="form-control" placeholder="Zipcode" autofocus name="zipcode">
-
-                    <h3 "form-signin-heading">Search by city</h3>
-                    <input type ="address" class="form-control" placeholder="Address" autofocus name="address">
+        			<p><input type ="zipcode" class="form-control" placeholder="Zipcode" autofocus name="zipcode"></p>
+                <!-- </div> -->
+                <!-- <h2 "form-signin-heading">Search by city</h2> -->
+                <!-- <div class="col-md-4"> -->
+                    <p><input type ="address" class="form-control" placeholder="City" autofocus name="address"></p>
         			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                 </div>
                 </div>
@@ -26,9 +30,9 @@
 
 
  
-        <h3><a href="{{ url_for ('advanced_search') }}">Advanced Search</a></h3>
+        <a href="{{ url_for ('advanced_search') }}"><h2>Advanced Search</h2></a>
         <div></div>
-        <h3><a href="{{ url_for ('parent_worksheet') }}">Parent Worksheet</a></h3>        
+        <!-- <a href="{{ url_for ('parent_worksheet') }}"><h2>Parent Worksheet</h2></a>         -->
   
 	</div>
 
