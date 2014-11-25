@@ -63,18 +63,7 @@ $('.button').submit(function) {
             },
         });
 
-    var makeEditable = function(divClass, id, name) {
 
-        $('.' + divClass).editable('/edit_center', {
-         type      : 'textarea',
-         cancel    : 'Cancel',
-         submit    : 'OK',
-         indicator : '<img src="img/indicator.gif">',
-         tooltip   : 'Click to edit...',
-         id        : id,
-         name      : name
-     });
-    };
 
 
 

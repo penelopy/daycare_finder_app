@@ -46,7 +46,10 @@ $(document).ready(function() {
     makeEditable("edit-area", "divEight", "email", '/edit_center');
     makeEditable("edit-area", "divNine", "website", '/edit_center');
     makeEditable("edit-area", "divTen", "fburl", '/edit_center');
-    makeEditable("edit-area", "contacted", "contacted", '/process_par_wksht');
+    makeEditable("edit-area", "dc_name", "dc_name", '/process_par_wksht');
+    makeEditable("edit-area", "interest", "interest", '/process_par_wksht');
+    makeEditable("edit-area", "notes", "notes", '/process_par_wksht');
+
 });
 
 

@@ -13,7 +13,8 @@
         <h2>Daycare Center(s):</h2>
           <div class="col-md-4 column">  
             {% for daycare_obj in daycare_obj_list %}
-            <p><a href="{{ url_for ('view_center', center_id = daycare_obj.id) }}"> {{ daycare_obj.biz_name}} </a></p>
+            <a href="{{ url_for ('view_center', center_id = daycare_obj.id) }}"> <h4> {{ daycare_obj.biz_name}} </h4></a>
+            <p></p>
             {% endfor %}
             </div>
         </div>

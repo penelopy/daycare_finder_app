@@ -30,7 +30,7 @@ h2 {
 h4, th {
     font-family: 'Corben', Georgia, Times, serif;
     font-size: 15px;
-    line-height: 12px;
+    line-height: 40px;
 }
  
 p, li, button, td, a {
@@ -65,4 +65,8 @@ body {
 
 /*    background-color: #808080;
 */}
+
+#slider {
+    background-color: white;
+}
 

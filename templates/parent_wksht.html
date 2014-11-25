@@ -13,8 +13,13 @@
 
   <h2 id="grid-options">Parent Worksheet</h2>
   <p>Make notes about daycares that interest you</p> 
+
+   <a href='/login'><h4>Login to access your page</h4></a>
+
   <!-- <p class="glyphicon glyphicon-pencil">Click to edit table</p> -->
   <div class="table-responsive">
+  <form class="form-register-parent" role="form" action="{{ url_for ('process_par_wksht') }}" method="post"> 
+
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -23,44 +28,35 @@
             Daycare Name
           </th>
           <th>
-            Last Contact Date
+            Last Contact
           </th>
           <th>
             Notes
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <!-- <th class="text-nowrap"></th> -->
-          <td class="glyphicon glyphicon-pencil"></td>
-          <td class="edit-area" id="dc_name" name="dc_name">Audrey's Daycare</td>
-          <td class="edit-area" id="interest" name="interest">Emailed on Friday, waiting to hear</td>
-          <td class="edit-area" id="notes" name="notes">Schedule visit asap</td>
-        </tr>
 
+      <tbody>
+          <!-- <th class="text-nowrap"></th> -->
+
+        {% for wksht_row in wksht_rows %}
         <tr>
-      <!-- <th class="text-nowrap"></th> -->
           <td class="glyphicon glyphicon-pencil"></td>
-          <td class="edit-area" id="dc_name" name="dc_name"> </td>
-          <td class="edit-area" id="interest" name="interest"> </td>
-          <td class="edit-area" id="notes" name="notes"> </td>
+          <td class="edit-area" id="dc_name" name="dc_name"> {{ wksht_row.daycare.biz_name }}</td>
+          <td class="edit-area" id="interest" name="interest">{{ wksht_row.level_of_interest }}</td>
+          <td class="edit-area" id="notes" name="notes">{{ wksht_row.notes }}</td>
         </tr>
-        <tr>
-      <!-- <th class="text-nowrap"></th> -->
-          <td class="glyphicon glyphicon-pencil"></td>
-          <td class="edit-area" id="dc_name" name="dc_name"> </td>
-          <td class="edit-area" id="interest" name="interest"> </td>
-          <td class="edit-area" id="notes" name="notes"> </td>
-        </tr>
-       <!-- <th class="text-nowrap"></th> -->
-         <td class="glyphicon glyphicon-pencil"></td>
-          <td class="edit-area" id="dc_name" name="dc_name"> </td>
-          <td class="edit-area" id="interest" name="interest"> </td>
-          <td class="edit-area" id="notes" name="notes"> </td>
-        </tr>
+        {% endfor %}
+        <!-- </tr> -->
+ 
       </tbody>
     </table>
+
+        <div name="add_row">
+          <button class="btn btn-lg btn-primary btn-block add_row" type="submit">Add Row</button>
+        </div>
+
+         </form>
   </div>
 
     <!-- Bootstrap core JavaScript

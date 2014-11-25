@@ -173,6 +173,32 @@ def load_endorsements(session):
                         endorsement = fields[3])  
         session.add(newendorse)
 
+def load_worksheet(session):
+    f = open('seed_data/wksht_rows.csv','r')
+
+    f = f.read().split("\r")
+
+    for line in f:
+        fields = line.split(',')    
+
+        # print fields[0]
+        # print fields[1]
+
+        # print fields[2]
+        # print fields[3]
+        # print fields[4]
+
+
+
+        newworksheet = model.WorksheetRow(id=fields[0], 
+                        daycare_id=fields[1], 
+                        parent_id =fields[2], 
+                        notes = fields[3],
+                        level_of_interest = fields[4]) 
+        session.add(newworksheet)
+
+
+
 def main(session):
     # load_centers(session)
     # load_parents(session)
@@ -182,7 +208,9 @@ def main(session):
     # load_photos(session)
     # load_center_languages(session)
     # load_center_schedule(session)
-    load_endorsements(session)
+    # load_endorsements(session)
+    load_worksheet(session)
+
     session.commit()
 
 if __name__ == "__main__":

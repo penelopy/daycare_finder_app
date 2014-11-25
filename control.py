@@ -50,8 +50,13 @@ def login_p():
 	user = model.db_session.query(model.Parent).filter_by(username=username).filter_by(password=password).first()
 	if user: 
 		flask_session['user'] = user.id
-		flash("Login successful")
-		return render_template('landing_pg.html', username = user.username)
+	# 	flash("Login successful")
+
+		wksht_rows = model.db_session.query(model.WorksheetRow).filter_by(parent_id=user.id).all()
+		if len(wksht_rows) > 0: 
+			return render_template('parent_wksht.html', wksht_rows = wksht_rows)
+		else: 
+			return render_template('parent_wksht.html')
 	else: 
 		flash("Username/password is invalid")
 		# return redirect(url_for('home_page'))
@@ -132,7 +137,9 @@ def process_search():
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
+			print "center list", center_list
 		for center in center_list: 
+			print "center", center 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_lang_list.append(center_obj)
 			for center in center_lang_list: 
@@ -154,16 +161,16 @@ def process_search():
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
-			print "center_list", center_list
+			print "center_list_159", center_list
 		for center in center_list: 
-		# 	print "center", center 
+			print "center_161", center 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_sch_list.append(center_obj)
 		# 	print "list = ", center_sch_list
 			# if len(center_sch_list) > 0: 
-			# 	for center in center_sch_list: 
-			# 		print "center", center 
-			# 		results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
+			for center in center_sch_list: 
+				print "center", center 
+				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(c_openings) > 0: 
 		num_criteria_selected += 1	
@@ -216,21 +223,20 @@ def view_center(center_id):
 @app.route('/parent_wksht')
 def process_par_wksht():
 	u = flask_session['user']
-	# name = request.form.get('interest')
-	# element = request.form.get('id')
-	# print "name", name
-	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(id = u).one()
-	if request.form.get('interest'):
-		wksht_obj.level_of_interest = interest
-	if request.form.get('notes'):
-		wksht_obj.notes = notes
-	if request.form.get('dc_name'):
-		wksht_obj.daycare_name = dc_name		
+	print "parent wksht form", request.form
+	name = request.form.get('name')
+	element = request.form.get('id')
+	print "name", name
+	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(parent_id = u).one()
+	if element == "interest":
+		wksht_obj.level_of_interest = name
+	if element == "notes":
+		wksht_obj.notes = name
+	# if request.form.get('dc_name'):
+	# 	wksht_obj.daycare_name = dc_name		
 
 	model.db_session.commit()
-	return "Hi"
-
-
+	return name
 
 # @app.route('/wksht_daycare_name', methods=['POST']) #working Fri 11/21
 # def select_daycare_name():
@@ -340,6 +346,7 @@ def edit_center_type():
 	model.db_session.commit()
 	return "Hi"
 
+#I'd like this function to capture the daycare id of the page it just left and send that to the endorsement_form.html
 @app.route('/endorse_form', methods=['POST'])
 def write_endorse(): 
 	print "request", request.form
@@ -350,10 +357,13 @@ def write_endorse():
 
 	return render_template('endorsement_form.html')
 
+#I'd like this to take the daycare id, parent_id and endorsement text and save to the endorsements table and send them back to the daycare page they were viewing
+#for this to work i'd have to force user to log in 
 @app.route('/process_endorse', methods=['POST'])
 def process_endorsement(): 
 	u = flask_session['user']
 	name = request.form.get('name')
+	print "daycare id", name
 	endorsement= request.form.get('endorsement')
 
 	e_obj = model.db_session.query(model.Endorsement).filter_by(id = name).one()
