@@ -1,6 +1,5 @@
-//Add the first image 
 
-$(document).ready(function(){
+$(document).ready(function() {
 
 
     //initializations

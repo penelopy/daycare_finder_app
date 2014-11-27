@@ -1,8 +1,6 @@
 {% extends 'base_old.html' %}
 
 {% block head %}
-    <link href="../static/css/grid.css" rel="stylesheet">
-    <link href="../static/css/signin.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
     <link href="../static/css/custom.css" rel="stylesheet">
@@ -14,7 +12,7 @@
   <h2 id="grid-options">Parent Worksheet</h2>
   <p>Make notes about daycares that interest you</p> 
 
-   <a href='/login'><h4>Login to access your page</h4></a>
+<!--    <a href='/login'><h4>Login to access your page</h4></a> -->
 
   <!-- <p class="glyphicon glyphicon-pencil">Click to edit table</p> -->
   <div class="table-responsive">
@@ -23,7 +21,7 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th></th>
+<!--           <th></th> -->
           <th>
             Daycare Name
           </th>
@@ -33,6 +31,9 @@
           <th>
             Notes
           </th>
+          <th>
+            Remove Row
+          </th>
         </tr>
       </thead>
 
@@ -41,35 +42,26 @@
 
         {% for wksht_row in wksht_rows %}
         <tr>
-          <td class="glyphicon glyphicon-pencil"></td>
-          <td class="edit-area" id="dc_name" name="dc_name"> {{ wksht_row.daycare.biz_name }}</td>
-          <td class="edit-area" id="interest" name="interest">{{ wksht_row.level_of_interest }}</td>
-          <td class="edit-area" id="notes" name="notes">{{ wksht_row.notes }}</td>
+<!--           <td class="glyphicon glyphicon-pencil"></td> -->
+          <td id="dc_name" name="{{ wksht_row.daycare_id }}"> {{ wksht_row.daycare.biz_name }}</td>
+          <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="i{{ wksht_row.daycare_id }}" name="interest">{{ wksht_row.level_of_interest }}</td>
+          <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="n{{ wksht_row.daycare_id }}" name="notes">{{ wksht_row.notes }}</td>
+          <td class="del glyphicon glyphicon-remove" data="{{ wksht_row.id }}" id="{{ wksht_row.id }}"></td>
         </tr>
         {% endfor %}
         <!-- </tr> -->
  
       </tbody>
     </table>
-
-        <div name="add_row">
-          <button class="btn btn-lg btn-primary btn-block add_row" type="submit">Add Row</button>
-        </div>
-
          </form>
+
+      <h4>Endorsements:</h4>
+
+      {% for endorsement in endorsements %}
+      <p>{{ endorsement.center.biz_name }}</p>
+      {% endfor %}
+
   </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/collapse.js"></script>
-    <script src="../static/js/jeditable.js"></script>
-    <script src="../static/js/custom_editing.js"></script>
-    <script src="../static/js/carousel_2.js"></script> 
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 {% endblock %}

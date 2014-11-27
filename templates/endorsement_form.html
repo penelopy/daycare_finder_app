@@ -17,36 +17,23 @@
 
     <div class="container"> 
         <form class="form-register-parent" role="form" action="{{ url_for ('process_endorsement') }}" method="post"> 
-            <h2 "form-signin-heading"> Write an Endorsement </h2>
-                <div class="row">
-                <div name="james">
-                        <h4>Daycare Center: </h4>
-                </div>
-                <div name="james">
-                    <select class='type-dropdown'>
-                        <option value="1">French Daycare</option>
-                        <option value="2">Audreys Daycare</option>
-                    </select>
+            <div>
 
-                </div>
+              {% for endo in endorse_obj_list %}  
+                <h4>Daycare Center: {{ endo.center.biz_name }}</h4>
+                {% endfor %}
             </div>
-                <div name="james">
-
-                    <input type ="endorsement" class="form-control" placeholder="Tell us about your experience with this daycare." required autofocus name="endorsement">
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                </div>
-                </div>
+            <div>
+      {% for endo in endorse_obj_list %} 
+      <input type="hidden" name="center_id" value="{{ endo.center.id }}">
+    <input class="form-control" type="text" name="endo_text" placeholder="Tell us about your experience with this daycare."> 
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                {% endfor %}
+                
         </form>
-
-    </div>
+        </div>
+<!--     </div> -->
 
 
 
 {% endblock %}
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>

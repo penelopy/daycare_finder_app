@@ -48,13 +48,32 @@
             <li></li>
         </ul>
     </div>
-
-      <form class="form-register-parent" role="form" action="{{ url_for ('write_endorse') }}" method="post"> 
-          <div class="column np" name="charlie"> 
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Endorse this daycare</button>
+      
+      {% if g.logged_in %}
+      <form class="form-register-parent" role="form" action="{{ url_for ('send_to_endorse_form') }}" method="post"> 
+          <div class="column np"> 
+              <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Endorse this daycare</button>
           </div>
       </form>
 
+      <form class="form-register-parent" role="form" action="{{ url_for ('send_to_worksheet') }}" method="post"> 
+          <div class="column np"> 
+              <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Save to my worksheet</button>
+          </div>
+      </form>
+      {% else %}
+      <form class="form-register-parent" role="form"> 
+          <div class="column np"> 
+              <span title="Log in to endorse this daycare"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Endorse this daycare</button></span>
+          </div>
+      </form>
+
+      <form class="form-register-parent" role="form"> 
+          <div class="column np"> 
+              <span title="Log in to save this daycare to your worksheet"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Save to my worksheet</button></span>
+          </div>
+      </form>
+      {% endif %}
 	<div class="row">
 		<div class="col-md-8">
 			<h2>
@@ -211,11 +230,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
        <!-- // <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/collapse.js"></script>
-    <script src="../static/js/carousel_2.js"></script> 
+        <script src="../static/js/carousel_2.js"></script> 
+   
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- // <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->

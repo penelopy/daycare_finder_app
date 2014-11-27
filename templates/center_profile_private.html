@@ -4,7 +4,6 @@
 {% block head %}
     <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
     <link href="../static/css/grid.css" rel="stylesheet">
-    <link href="../static/css/custom.css" rel="stylesheet">
     <!-- <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" type="text/css" href="../static/css/carousel.css">
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
@@ -80,7 +79,6 @@
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
           <select class='type-dropdown'>
-            <script>console.log("type" + {{ daycare_obj.type_of_center_id }})</script>
           {% if daycare_obj.type_of_center_id == 1 %}
             <option selected="1" value="1">Home Based Daycare</option>
             <option value="2">Child Care Center</option>
@@ -100,9 +98,6 @@
     </div>        
       </div>
     </div>
-
-
-
 
 
   <div class="panel panel-default">
@@ -218,11 +213,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/collapse.js"></script>
-    <script src="../static/js/jeditable.js"></script>
-    <script src="../static/js/custom_editing.js"></script>
+
     <script src="../static/js/carousel_2.js"></script> 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

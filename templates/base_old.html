@@ -28,6 +28,11 @@
     </style>
         {% block head %}{% endblock %}
 
+    <script>
+        var logged_in = {{ g.logged_in }};
+        console.log("logged_in = ", logged_in);
+
+    </script>
     </head>
 
     <body>
@@ -54,16 +59,20 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                 {% if g.logged_in %}                 
+                  <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+                  {% else %}
                   <li><a href="{{ url_for('login') }}">Sign In</a></li>
                   <li><a href="{{ url_for('par_signup') }}">Create an Account: Parents</a></li>
                   <li><a href="{{ url_for('center_signup') }}">Create an Account: Daycare Centers</a></li>
+                  {% endif %}
                 </ul>
               </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-        <div class="container">
+        <div class="container"><p>Parent_ID=  {{ g.parent_id }}</p>  <p>Daycare_ID={{ g.daycare_center_id }}</p> <p>Logged_in={{ g.logged_in }}</p>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
@@ -82,7 +91,9 @@
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/collapse.js"></script>
     <script src="../static/js/jeditable.js"></script>
+    <script src="../static/js/carousel_2.js"></script> 
     <script src="../static/js/custom_editing.js"></script>
+
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
