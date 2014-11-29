@@ -10,9 +10,8 @@
 {% block body %}
 
   <h2 id="grid-options">Parent Worksheet</h2>
-  <p>Make notes about daycares that interest you</p> 
+  <p>Make notes about daycares that interest you. Click to edit table.</p> 
 
-<!--    <a href='/login'><h4>Login to access your page</h4></a> -->
 
   <!-- <p class="glyphicon glyphicon-pencil">Click to edit table</p> -->
   <div class="table-responsive">
@@ -26,10 +25,10 @@
             Daycare Name
           </th>
           <th>
-            Last Contact
+            Last Contact   <p class="glyphicon glyphicon-pencil"></p>
           </th>
           <th>
-            Notes
+            Notes     <p class="glyphicon glyphicon-pencil"></p>
           </th>
           <th>
             Remove Row
@@ -56,10 +55,11 @@
          </form>
 
       <h4>Endorsements:</h4>
-
       {% for endorsement in endorsements %}
-      <p>{{ endorsement.center.biz_name }}</p>
-      {% endfor %}
+            <li>{{ endorsement.center.biz_name }}</li>
+
+<!--       <p><a href="{ url_for('viewcenter'), endorsement.center.id= endorsement.center.id }">{{ endorsement.center.biz_name }}<a></p>
+ -->      {% endfor %}
 
   </div>
 

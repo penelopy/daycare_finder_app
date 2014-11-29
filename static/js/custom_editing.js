@@ -33,6 +33,16 @@ $(document).ready(function() {
       });
      });
 
+    $('.search-dropdown').change(function() {
+        var clicked_id = $(".search-dropdown").val();
+
+        $.ajax({
+          type: "POST",
+          url: '/search_page',
+          data: {id: clicked_id}
+      });
+     });
+
     $('table td.del').click(function() {
         var self = this;
         $.ajax({

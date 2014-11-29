@@ -56,7 +56,7 @@ def new_par_registration():
 	new_parent = model.Parent(first_name = first_name, last_name = last_name, username = username, password = password, email = email, zipcode = zipcode, neighborhood = neighborhood)
 	model.db_session.add(new_parent)
 	model.db_session.commit()
-	return render_template('landing_pg.html', username = new_parent.first_name)
+	return redirect(url_for('search'))
 
 @app.route('/parent', methods=['POST']) #working Tues 11/11
 def login_p(): 
@@ -74,7 +74,8 @@ def login_p():
 
 @app.route('/search')
 def search():
-	return render_template('landing_pg.html')
+	all_daycares= model.db_session.query(model.Center).all()
+	return render_template('landing_pg.html', all_daycares = all_daycares)
 
 @app.route('/search_page', methods=['GET', 'POST']) #updated and working Tues 11/18
 def search_page(): 
@@ -87,7 +88,7 @@ def search_page():
 		else:
 			return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
 
-	else:
+	elif request.form['address']:
 		address = request.form['address']
 		daycare_list = model.db_session.query(model.Center).filter_by(address=address).all()
 		if daycare_list == []: 
@@ -95,6 +96,15 @@ def search_page():
 			return redirect(url_for('search'))
 		else:	
 			return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
+
+	else: 
+		center_id = request.form.get('id')
+		print "form", request.form
+		print "center id", center_id
+		daycare_list = model.db_session.query(model.Center).filter_by(id = center_id).all()
+		return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
+
+
 
 @app.route('/adv_searchpage')
 def advanced_search(): 
@@ -138,7 +148,6 @@ def process_search():
 		zipcode = request.form.get('zipcode')
 		center_zipcode_list = model.db_session.query(model.Center).filter_by(zipcode = zipcode).all()
 		for center in center_zipcode_list: 
-		# 	print "center", center.id	
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if request.form.get('address'):
@@ -156,21 +165,17 @@ def process_search():
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
-			print "center list", center_list
 		for center in center_list: 
-			print "center", center 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_lang_list.append(center_obj)
-			for center in center_lang_list: 
-			# 	print "center", center.id
-				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
+		for center in center_lang_list: 
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(dc_types) > 0: 
 		num_criteria_selected += 1
 		for item in dc_types: 
 			center_type_list = model.db_session.query(model.Center).filter_by(type_of_center_id = item).all()
 			for center in center_type_list: 
-			# 	print "center", center.id
 				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(sch) > 0: 
@@ -180,29 +185,25 @@ def process_search():
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
-			print "center_list_159", center_list
+			print "center_list_193", center_list
 		for center in center_list: 
-			print "center_161", center 
+			print "center_195", center 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_sch_list.append(center_obj)
-		# 	print "list = ", center_sch_list
-			# if len(center_sch_list) > 0: 
-			for center in center_sch_list: 
-				print "center", center 
-				results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
+		print "list = ", center_sch_list
+		for center in center_sch_list: 
+			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(c_openings) > 0: 
 		num_criteria_selected += 1	
 		center_open_list = model.db_session.query(model.Center).filter_by(current_openings = True).all()
 		for center in center_open_list: 
-		# 	print "center", center.id	
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(s_need) > 0: 
 		num_criteria_selected += 1		
 		center_needs_list = model.db_session.query(model.Center).filter_by(special_needs = True).all()
 		for center in center_needs_list: 
-			# print "center", center.id
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	for key, value in results_dict.iteritems():
@@ -215,11 +216,8 @@ def process_search():
 
 	if len(match_all_list) > 0: 
 		no_matches = 1
-		# no_matches = "No daycare centers match all of your criteria. Review the sections below to find daycares that meet some of your criteria."
-		# print "results list", results_list	
-	# print "dict", results_dict
 
-	return render_template('adv_results.html', no_matches = no_matches, match_all_list = match_all_list, center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
+	return render_template('adv_res_test.html', no_matches = no_matches, match_all_list = match_all_list, center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
 
 
 @app.route('/processtype', methods=['POST']) 
