@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+
+    {% block head %}
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    <link href="../static/css/custom.css" rel="stylesheet">  
+    {% endblock %}
+
+{% block body %}
+
+  <h2>Simple Search Results</h2>
+
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>
+            Daycare Name
+          </th>
+          <th>
+            Neighborhood
+          </th>
+          <th>
+            Zipcode
+          </th>
+          <th>
+            Current Openings? 
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for daycare_obj in daycare_obj_list %}
+        <tr>
+          <td><a href="{{ url_for ('view_center', center_id = daycare_obj.id) }}">{{ daycare_obj.biz_name }}</a></td>
+          <td> {{ daycare_obj.neighborhood }}</td>
+          <td>{{ daycare_obj.zipcode }}</td>
+          {% if daycare_obj.current_openings == False %}
+          <td>No</td>
+          {% elif daycare_obj.current_openings == True %}
+          <td>Yes</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    {% endblock %}    

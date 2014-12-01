@@ -1,0 +1,102 @@
+<!-- Parents - base.html -->
+
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Little Turtles: Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="../static/css/signin.css" rel="stylesheet"> -->
+    <script src="../static/js/ie-emulation-modes-warning.js"></script>
+
+    <style>
+    #registration-link{
+        text-align: center;
+    }
+
+    </style>
+        {% block head %}{% endblock %}
+
+    <script>
+        var logged_in = {{ g.logged_in }};
+        console.log("logged_in = ", logged_in);
+
+    </script>
+    </head>
+
+    <body>
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <p><a class="navbar-brand" href="{{ url_for('home_page') }}">Little Turtles</a></p>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ url_for('home_page') }}">Home</a></li>
+              <li><a href="{{ url_for('search') }}">Simple Search</a></li>
+              <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
+              <li><a href="{{ url_for('parent_worksheet') }}">Parent Worksheet</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                 {% if g.logged_in %}                 
+                  <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+                  {% else %}
+                  <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                  <li><a href="{{ url_for('par_signup') }}">Create an Account: Parents</a></li>
+                  <li><a href="{{ url_for('center_signup') }}">Create an Account: Daycare Centers</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+        <div class="container"><!-- <p>Parent_ID=  {{ g.parent_id }}</p>  <p>Daycare_ID={{ g.daycare_center_id }}</p> <p>Logged_in={{ g.logged_in }}</p> -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <ul class="flashes">
+                <li>{{message}}</li>
+            </ul>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+        </div>
+            <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/collapse.js"></script>
+    <script src="../static/js/jeditable.js"></script>
+    <script src="../static/js/carousel_2.js"></script> 
+    <script src="../static/js/custom_editing.js"></script>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    </body>
+</html>

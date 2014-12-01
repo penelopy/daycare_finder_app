@@ -1,8 +1,7 @@
 <!-- Privately editable daycare profile page -->
 
-{% extends 'base_old.html' %}
+{% extends 'base.html' %}
 {% block head %}
-    <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
     <link href="../static/css/grid.css" rel="stylesheet">
     <!-- <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" type="text/css" href="../static/css/carousel.css">
@@ -15,7 +14,6 @@
 
 {% block body %}
 
-<!--     {{ daycare_obj.photos }} -->
 <div class="container2">
     <div class="header2"><h2> {{ daycare_obj.biz_name }} </h2></div>
     <button id="prev">Prev</button>
@@ -35,11 +33,8 @@
     </ul>
 </div>
 
-
-
     <div class="row">
         <div class="col-md-8">
-        <!-- <div class="test col-md-8">     -->
             <h2>
                 {{ daycare_obj.biz_name }} 
 
@@ -151,38 +146,11 @@
     </div>
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body checkbox dropdown_box">
-        <!-- <strong>Languages which appear on your profile:</strong> -->
         <p></p>
         {% for language in daycare_obj.languages%}
           <p>{{ language.name }}</p>
         {% endfor %}
-<!--           <strong>Edit your language selections below:</strong>
-          <p></p>
-            <form class="form-register-parent" action="/editlang" method="post"> 
 
-                <input selected="1" type="checkbox" id="1" name="1">  English
-                <p></p>
-                <input selected="2" type="checkbox" id="2" name="2">  American Sign Language
-                <p></p>
-                <input selected="3" type="checkbox"id="3" name"3">  Chinese
-                <p></p>
-                <input selected="4" type="checkbox"id="4" name="4">  French
-                <p></p>
-                <input selected="5" type="checkbox"id="5" name="5">  German
-                <p></p>
-                <input selected="6" type="checkbox"id="6" name="6">  Korean
-                <p></p>
-                <input selected="7" type="checkbox"id="7" name="7">  Spanish
-                <p></p>
-                <input selected="8" type="checkbox"id="8" name="8">  Vietnamese
-                <p></p>
-                <input selected="9" type="checkbox"id="9" name="9">  Japanese
-                <p></p>
-                <input selected="10" type="checkbox" id="10" name="10">  Farsi
-                <p></p>
-                <input selected="11" type="checkbox" id="11" name="11">  Arabic
-                <button class="btn btn-sm btn-primary btn-block" type="submit">Submit</button>
-                </form> -->
         </div>
       </div>
     </div>
@@ -208,7 +176,7 @@
     </div>
     </div>
 </div>
-<!-- </div> -->
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

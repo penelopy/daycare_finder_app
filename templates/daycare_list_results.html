@@ -1,5 +1,5 @@
 
-{% extends 'base_old.html' %}
+{% extends 'base.html' %}
 
     {% block head %}
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
@@ -11,16 +11,13 @@
         <div class="container"> 
 
         <h2>Daycare Center(s):</h2>
-          <div class="col-md-4 column">  
+          <div class="col-md-6 column">  
             {% for daycare_obj in daycare_obj_list %}
             <a href="{{ url_for ('view_center', center_id = daycare_obj.id) }}"> <h4> {{ daycare_obj.biz_name}} </h4></a>
             <p></p>
             {% endfor %}
             </div>
         </div>
-<!-- </div> -->
-
-
 
 
 {% endblock %}

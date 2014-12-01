@@ -1,6 +1,6 @@
 <!-- Publicly viewable daycare profile page -->
 
-{% extends 'base_old.html' %}
+{% extends 'base.html' %}
 {% block head %}
     <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
     <link href="../static/css/grid.css" rel="stylesheet">
@@ -17,28 +17,20 @@
 
 {% block body %}
 
-<!-- <div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<div>
-					<img class="displayed" src="../static/img/audrey11.jpg" style="height:45%">
-			</div>
-		</div>
-	</div> -->
-<!-- {{ daycare_obj.photos }}
+<!-- {{ daycare_obj.photos }} -->
 
-        {% for photo in daycare_obj.photos %}
+ <!--        {% for photo in daycare_obj.photos %}
         {{ photo.photo_link }}
                 {% endfor %} -->
 
     <div class="container2">
         <div class="header2"><h2> {{ daycare_obj.biz_name }} </h2></div>
-        <button id="prev">Prev</button>
-        <button id="next">Next</button>
-        <div id="slider">
-        {% for photo in daycare_obj.photos %}
-            <li><img  src="{{ photo.photo_link }}" style="height:95%"></li>
-        {% endfor %}
+            <button id="prev">Prev</button>
+            <button id="next">Next</button>
+            <div id="slider">
+            {% for photo in daycare_obj.photos %}
+                <li><img  src="{{ photo.photo_link }}" style="height:95%"></li>
+            {% endfor %}
         </div>
 
         <ul id="navigation">
@@ -50,30 +42,39 @@
     </div>
       
       {% if g.logged_in %}
-      <form class="form-register-parent" role="form" action="{{ url_for ('send_to_endorse_form') }}" method="post"> 
-          <div class="column np"> 
-              <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Endorse this daycare</button>
+      <div class="row parent_btn">
+        <div class="col-md-4 col-md-offset-2 parent_btn">
+            <form class="form-register-parent" role="form" action="{{ url_for ('send_to_endorse_form') }}" method="post"> 
+                <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Endorse this daycare</button>
+            </form>
           </div>
-      </form>
 
-      <form class="form-register-parent" role="form" action="{{ url_for ('send_to_worksheet') }}" method="post"> 
-          <div class="column np"> 
+        <div class="col-md-4 parent_btn">
+          <form class="form-register-parent" role="form" action="{{ url_for ('send_to_worksheet') }}" method="post"> 
               <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Save to my worksheet</button>
-          </div>
-      </form>
+          </form>
+        </div>
+      </div>
+
       {% else %}
-      <form class="form-register-parent" role="form"> 
-          <div class="column np"> 
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2"> 
+          <form class="form-register-parent" role="form"> 
+          <div class="pull-right"> 
               <span title="Log in to endorse this daycare"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Endorse this daycare</button></span>
           </div>
-      </form>
-
-      <form class="form-register-parent" role="form"> 
-          <div class="column np"> 
+        </form>
+       </div>
+      <div class="col-md-4">
+        <form class="form-register-parent" role="form"> 
+          <div class="pull-right"> 
               <span title="Log in to save this daycare to your worksheet"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Save to my worksheet</button></span>
           </div>
-      </form>
+        </form>
+      </div>
+    </div>
       {% endif %}
+
 	<div class="row">
 		<div class="col-md-8">
 			<h2>
@@ -81,16 +82,13 @@
 			</h2>
 			<h4> About Us
 			</h4> 
-			
-				<p>{{ daycare_obj.about_us }}</p>
-
+  				<p>{{ daycare_obj.about_us }}</p>
         <h4> Endorsements</h4>
-        {% for endorsement in daycare_obj.endorsements %}
-        <p>{{ endorsement.endorsement }}</p>
-        {% endfor %}
+          {% for endorsement in daycare_obj.endorsements %}
+          <p>{{ endorsement.endorsement }}</p>
+          {% endfor %}
 		</div>	
-	<!-- </div> -->
-<!-- 	</div> -->
+
 	<div class="col-md-4 column">
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -209,22 +207,22 @@
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
-			<p>Phone: {{ daycare_obj.phone }}</p>
-			<p>Email: {{ daycare_obj.email }}</p>
-			<p>Website: <a href="{{ daycare_obj.web_url }}">{{ daycare_obj.web_url }}</a></p>
-			<p>FB Link: {{ daycare_obj.fb_url }}</p>
-		</div>
-      </div>
+  			<p>Phone: {{ daycare_obj.phone }}</p>
+  			<p>Email: {{ daycare_obj.email }}</p>
+  			<p>Website: <a href="{{ daycare_obj.web_url }}">{{ daycare_obj.web_url }}</a></p>
+  			<p>FB Link: {{ daycare_obj.fb_url }}</p>
+  		</div>
     </div>
+  </div>
  
 
 
 </div>
 
 
-	</div>
-	</div>
-<!-- </div> -->
+</div>
+</div>
+
 
     <!-- JavaScript
     ================================================== -->

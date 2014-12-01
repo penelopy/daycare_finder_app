@@ -25,7 +25,7 @@ h2 {
 h4, th {
     font-family: 'Corben', Georgia, Times, serif;
     font-size: 15px;
-    line-height: 40px;
+    line-height: 10px;
 }
  
 p, li, button, td, a {
@@ -34,7 +34,7 @@ p, li, button, td, a {
     line-height: 25px;
 }
 
-.col-md-4, .col-md-8 {
+.col-md-4, .col-md-8, .col-md-6 {
     background-color: #f5f5f5;
     padding-right: 25px;
     padding-left: 25px;
@@ -58,4 +58,10 @@ body {
 
 }
 
+.parent_btn {
+    background-color: #c5d08a;
+}
 
+.leftturtle { 
+    padding-left: 30px;
+}

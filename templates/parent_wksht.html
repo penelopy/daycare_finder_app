@@ -1,4 +1,4 @@
-{% extends 'base_old.html' %}
+{% extends 'base.html' %}
 
 {% block head %}
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
         {% for wksht_row in wksht_rows %}
         <tr>
 <!--           <td class="glyphicon glyphicon-pencil"></td> -->
-          <td id="dc_name" name="{{ wksht_row.daycare_id }}"> {{ wksht_row.daycare.biz_name }}</td>
+          <td id="dc_name" name="{{ wksht_row.daycare_id }}"><a href="{{ url_for ('view_center', center_id = wksht_row.daycare_id) }}">{{ wksht_row.daycare.biz_name }}</td>
           <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="i{{ wksht_row.daycare_id }}" name="interest">{{ wksht_row.level_of_interest }}</td>
           <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="n{{ wksht_row.daycare_id }}" name="notes">{{ wksht_row.notes }}</td>
           <td class="del glyphicon glyphicon-remove" data="{{ wksht_row.id }}" id="{{ wksht_row.id }}"></td>
@@ -56,7 +56,7 @@
 
       <h4>Endorsements:</h4>
       {% for endorsement in endorsements %}
-            <li>{{ endorsement.center.biz_name }}</li>
+            <li><a href="{{ url_for ('view_center', center_id = endorsement.center.id) }}">{{ endorsement.center.biz_name }}</li>
 
 <!--       <p><a href="{ url_for('viewcenter'), endorsement.center.id= endorsement.center.id }">{{ endorsement.center.biz_name }}<a></p>
  -->      {% endfor %}

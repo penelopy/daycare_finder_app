@@ -1,5 +1,5 @@
 
-{% extends 'base_old.html' %}
+{% extends 'base.html' %}
 
 {% block head %}
     <link href="../static/css/grid.css" rel="stylesheet">
@@ -17,62 +17,13 @@
                 <div class="row">
                 <h2 "form-signin-heading">Search by zipcode or city</h2>
                 <div class="col-md-4">
-        			<!-- <h2 "form-signin-heading">Simple Search</h2> -->
         			<p><input type ="zipcode" class="form-control" placeholder="Zipcode" autofocus name="zipcode"></p>
-                <!-- </div> -->
-                <!-- <h2 "form-signin-heading">Search by city</h2> -->
-                <!-- <div class="col-md-4"> -->
                     <p><input type ="address" class="form-control" placeholder="City" autofocus name="address"></p>
         			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                 </div>
                 </div>
 		</form>
 
-        <h4>Search by daycare name</h4>
-<!-- 
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                Dropdown
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-
-              </ul>
-            </div> -->
-
-
-
-
-<!-- Single button -->
-        <form class="form-search-daycare" role="form" action="{{ url_for ('search_page') }}" method="post"> 
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                Daycare Businesses <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu search-dropdown" role="menu">
-                {% for daycare_obj in all_daycares %}
-                <li id="daycare_id" value="{{ daycare_obj.id }}"><a href="{{ url_for('search_page') }}">{{ daycare_obj.biz_name }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-          </form>
-
-
-        <!-- <form class="form-search-daycare" role="form" action="{{ url_for ('search_page') }}" method="post">  -->
-
-<!--            <select class='search-dropdown'>   
-            {% for daycare_obj in all_daycares %}
-            <option value="{{ daycare_obj.id }}">{{ daycare_obj.biz_name }}</option>
-            {% endfor %}
-        </select>
-        <div class="col-md-2">
-            <button class="btn btn-xs btn-primary btn-block" type="submit">Submit</button>
-        </div>     -->
-        <!-- </form> -->
- 
-<!--         <a href="{{ url_for ('advanced_search') }}"><h2>Advanced Search</h2></a>
-        <!-- <a href="{{ url_for ('parent_worksheet') }}"><h2>Parent Worksheet</h2></a>         -->
   
 	</div>
 

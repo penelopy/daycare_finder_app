@@ -86,7 +86,7 @@ def search_page():
 			flash("No results match your search criteria")
 			return redirect(url_for('search'))
 		else:
-			return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
+			return render_template('alt_search_results.html', daycare_obj_list = daycare_list)
 
 	elif request.form['address']:
 		address = request.form['address']
@@ -95,22 +95,14 @@ def search_page():
 			flash("No results match your search criteria")
 			return redirect(url_for('search'))
 		else:	
-			return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
-
-	else: 
-		center_id = request.form.get('id')
-		print "form", request.form
-		print "center id", center_id
-		daycare_list = model.db_session.query(model.Center).filter_by(id = center_id).all()
-		return render_template('daycare_list_results.html', daycare_obj_list = daycare_list)
-
+			return render_template('alt_search_results.html', daycare_obj_list = daycare_list)
 
 
 @app.route('/adv_searchpage')
 def advanced_search(): 
 	return render_template('advanced_search.html')
 
-@app.route('/process_search', methods=['POST'])
+@app.route('/process_search', methods=['POST']) #Fri 11/28
 def process_search():
 
 	langs = []
@@ -128,8 +120,8 @@ def process_search():
 	results_dict = {}
 	results_list = []
 	match_all_list = []
+	values_list = []
 	num_criteria_selected = 0
-	no_matches = ""
 
 	for key in request.form.keys():
 		if key[0:4] == "lang":
@@ -185,12 +177,9 @@ def process_search():
 			center_list = []
 			for a_tuple in center_tup_list: 
 				center_list.append(a_tuple[1])
-			print "center_list_193", center_list
 		for center in center_list: 
-			print "center_195", center 
 			center_obj = model.db_session.query(model.Center).filter_by(id = center).one()
 			center_sch_list.append(center_obj)
-		print "list = ", center_sch_list
 		for center in center_sch_list: 
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
@@ -207,17 +196,19 @@ def process_search():
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	for key, value in results_dict.iteritems():
-		results_list.append(key)
-
-		if value == num_criteria_selected: 
+		values_list.append(value)
+		sorted(values_list)
+		print "values list", values_list
+		for v in values_list: 
+			print v, key
 			center_obj = model.db_session.query(model.Center).filter_by(id = key).one()	
-
 			match_all_list.append(center_obj)
 
-	if len(match_all_list) > 0: 
-		no_matches = 1
+	results_list = set(match_all_list)
+	print "results list", results_list
+	print "results dict", results_dict
 
-	return render_template('adv_res_test.html', no_matches = no_matches, match_all_list = match_all_list, center_zip_list=center_zipcode_list, center_lang_list = center_lang_list, center_sch_list = center_sch_list, center_open_list=center_open_list, center_needs_list = center_needs_list, center_city_list=center_city_list, center_type_list = center_type_list)
+	return render_template('adv_results_ext.html', results_list=results_list)
 
 
 @app.route('/processtype', methods=['POST']) 
@@ -247,32 +238,25 @@ def view_center(center_id):
 @app.route('/sendwksht', methods=['POST'])
 def send_to_worksheet():
 	p = g.parent_id
-
 	daycare_id = request.form.get('daycare_id')
-	print "daycare_id", daycare_id
-
-	new_row = model.WorksheetRow(parent_id = p, daycare_id = daycare_id)
-	model.db_session.add(new_row)
-	model.db_session.commit()
-	return redirect(url_for('parent_worksheet'))
-	# return "Hi"
-
+	daycare_list = model.db_session.query(model.WorksheetRow).filter_by(parent_id = p).filter_by(daycare_id = daycare_id).all()
+	# print "daycare", daycare
+	if len(daycare_list) >0:
+		flash("This daycare already exists on your worksheet")
+		return redirect(url_for('parent_worksheet'))		
+	else: 	
+		new_row = model.WorksheetRow(parent_id = p, daycare_id = daycare_id)
+		model.db_session.add(new_row)
+		model.db_session.commit()
+		return redirect(url_for('parent_worksheet'))
 
 @app.route('/parent_wksht', methods=['POST'])
 def process_par_wksht():
 	p = g.parent_id
-	my_form = request.form
-	print "parent wksht form", my_form
 	value = request.form.get('value')
 	element = request.form.get('id')
-
 	daycareid = element[1:]
-	print "col", element[0]
-	print "daycareid", daycareid
-	# print "value", value
-	# print "element", element
 	wksht_obj = model.db_session.query(model.WorksheetRow).filter_by(parent_id = p).filter_by(daycare_id=daycareid).one()
-	
 	if element[0] == "i":
 		wksht_obj.level_of_interest = value
 	if element[0] == "n":
@@ -282,10 +266,7 @@ def process_par_wksht():
 
 @app.route('/delete_daycare', methods=['POST'])
 def delete_daycare():
-	#make sure user logged in
-	#make sure user is allowed to delete row
 	if g.parent_id: 
-		# p = g.parent_id
 		wkshtid = request.form.get('wkshtid')
 		daycare = model.db_session.query(model.WorksheetRow).filter_by(id = wkshtid).all()
 		if daycare == []:
@@ -298,20 +279,7 @@ def delete_daycare():
 		flash("Log in to use this feature.")
 		return redirect(url_for('login_p'))
 
-
-# @app.route('/wksht_daycare_name', methods=['POST']) #working Fri 11/21
-# def select_daycare_name():
-# 	u = flask_session['user']
-# 	center_typeid = request.form.get('id')
-# 	print "type id", center_typeid
-# 	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-# 	center_obj.type_of_center_id = center_typeid
-
-# 	model.db_session.commit()
-# 	return "Hi"
-
-
-# USER - DAYCARE CENTER
+# USER = DAYCARE CENTER
 
 @app.route('/center_signup') #working Sat 11/15
 def center_signup():
@@ -383,42 +351,20 @@ def edit_center_profile():
 	model.db_session.commit()
 	return name
 
-# @app.route('/editlang', methods=['POST'])
-# def edit_lang():
-# 	u = flask_session['user']
-# 	id = request.form.get('id')
-# 	name = request.form.get('name')
-# 	print "id", id
-# 	print "name", name
-
-# 	# center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-# 	# for id in data: 
-# 	# 	print "id", id
-# 	# 	center_obj.languages = id 
-# 	# model.db_session.commit()
-
-# 	return "Hi"
-
 @app.route('/edittype', methods=['POST']) #working Fri 11/21
 def edit_center_type():
 	d = flask_session['daycare_center_id']
 	center_typeid = request.form.get('id')
-	print "type id", center_typeid
 	center_obj = model.db_session.query(model.Center).filter_by(id = d).one()
 	center_obj.type_of_center_id = center_typeid
-
 	model.db_session.commit()
-	return "Hi"
+	return "OK"
 
 @app.route('/sendendorse', methods=['POST'])
 def send_to_endorse_form():
 	p = g.parent_id
-	print "form=", request.form
 	daycare_id = request.form.get('daycare_id')
-	print "daycare_id", daycare_id
-
 	exist_endorse = model.db_session.query(model.Endorsement).filter_by(daycare_id = daycare_id, parent_id =p).all()
-	print "len", len(exist_endorse)
 	if len(exist_endorse) == 0: 
 		new_endorse = model.Endorsement(parent_id = p, daycare_id = daycare_id)
 		model.db_session.add(new_endorse)
@@ -436,15 +382,6 @@ def process_endorsement():
 	center_id= request.form.get('center_id')
 	endo_text = request.form.get('endo_text')
 	e_obj = model.db_session.query(model.Endorsement).filter_by(daycare_id = center_id).filter_by(parent_id=p).one()
-	# for e_obj in e_obj_list:
-	# 	e_obj.parent_id = p
-	# 	e_obj.endorsement = endo_text
-	# 	model.db_session.commit()
-
-
-	# e_obj = model.db_session.query(model.Endorsement).filter_by(id = center_id).one()
-	# print "endo obj", e_obj
-	# e_obj.parent_id = p
 	e_obj.endorsement = endo_text
 	model.db_session.commit()
 	return redirect(url_for('parent_worksheet'))
