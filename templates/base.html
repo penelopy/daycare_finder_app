@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../static/img/favicon_1.jpg">
 
-    <title>Little Turtles: Home</title>
+    <title>Little Turtles</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.css" rel="stylesheet">
@@ -39,7 +39,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-inverse" role="navigation">
+      <nav class="navbar" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -48,14 +48,22 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <p><a class="navbar-brand" href="{{ url_for('home_page') }}">Little Turtles</a></p>
+            <p><img class="logo_style" src="../static/img/shutterstock_7344373_v5.png" width="40px"></img><a class="navbar-brand" href="{{ url_for('home_page') }}">Little Turtles</a></p>
           </div>
+          {% if g.parent_id %}
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="{{ url_for('home_page') }}">Home</a></li>
               <li><a href="{{ url_for('search') }}">Simple Search</a></li>
               <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
               <li><a href="{{ url_for('parent_worksheet') }}">Parent Worksheet</a></li>
+              {% else %}
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ url_for('home_page') }}">Home</a></li>
+              <li><a href="{{ url_for('search') }}">Simple Search</a></li>
+              <li><a href="{{ url_for('advanced_search') }}">Advanced Search</a></li>
+                {% endif %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -72,6 +80,7 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+      <div class="big_container">
         <div class="container"><!-- <p>Parent_ID=  {{ g.parent_id }}</p>  <p>Daycare_ID={{ g.daycare_center_id }}</p> <p>Logged_in={{ g.logged_in }}</p> -->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -84,6 +93,7 @@
             {% endwith %}
             {% block body %}{% endblock %}
         </div>
+      </div>
             <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

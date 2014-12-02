@@ -9,6 +9,11 @@
     margin-right: auto 
 }
 
+.navbar {
+    background-color: #819AA9;
+    margin-bottom: 0px;
+}
+
 
 h1 {
     font-family: 'Corben', Georgia, Times, serif;
@@ -30,18 +35,22 @@ h4, th {
  
 p, li, button, td, a {
     font-family: 'Nobile', Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 25px;
 }
 
 .col-md-4, .col-md-8, .col-md-6 {
-    background-color: #f5f5f5;
+    background-color: #E6F1F6 !important;
     padding-right: 25px;
     padding-left: 25px;
 }
 
+.table-parent { 
+    width: 80%;}
+
 .table {
-        background-color: #c0c0c0;
+    width: 90% !important;
+    background-color: #F8F8F8; 
 }
 
 #slider {
@@ -50,18 +59,61 @@ p, li, button, td, a {
 
 .index2 {
     padding-top: 25px;
-
 } 
 
 body { 
-    background-color: #c5d08a;
-
-}
-
-.parent_btn {
-    background-color: #c5d08a;
+    background-color: #ADC18C;
 }
 
 .leftturtle { 
     padding-left: 30px;
+}
+
+.logo_style {
+    float: left;
+    padding-top: 5px;
+}
+
+.table-head {
+    background-color: #819AA9;
+
+}
+
+.parent_btn {
+    background-color: #FFFFFF;
+    border: 0;
+}
+
+
+.navbar a {
+    color: #dddddd;
+}
+
+.navbar a:hover {
+    color: black;
+}
+
+.big_container {
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+.form-container { 
+    /*width: 50%;*/
+    margin: 0 auto;
+}
+
+.form-container-container { 
+    width: 90%;
+}
+
+.btn-width {
+    width: 34.5% !important;
+    margin-left: -15px;
+    margin-top: 10px;
+    background-color: #428bca;
+}
+
+.navbar-brand {
+    font-family: 'Corben', Georgia, Times, serif;
 }

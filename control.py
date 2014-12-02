@@ -119,7 +119,8 @@ def process_search():
 	center_city_list = []
 	results_dict = {}
 	results_list = []
-	match_all_list = []
+	# match_all_list = []
+	# final_match_list = []
 	values_list = []
 	num_criteria_selected = 0
 
@@ -195,19 +196,15 @@ def process_search():
 		for center in center_needs_list: 
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
-	for key, value in results_dict.iteritems():
-		values_list.append(value)
-		sorted(values_list)
-		print "values list", values_list
-		for v in values_list: 
-			print v, key
-			center_obj = model.db_session.query(model.Center).filter_by(id = key).one()	
-			match_all_list.append(center_obj)
+	output_tup_list= sorted(results_dict.items(), key=lambda x: x[1], reverse=True)
+	print output_tup_list
 
-	results_list = set(match_all_list)
+	for i in range(len(output_tup_list)):
+		center_obj = model.db_session.query(model.Center).filter_by(id = output_tup_list[i][0]).one()	
+		results_list.append(center_obj)
+
 	print "results list", results_list
 	print "results dict", results_dict
-
 	return render_template('adv_results_ext.html', results_list=results_list)
 
 
