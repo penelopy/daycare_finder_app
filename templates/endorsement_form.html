@@ -15,8 +15,8 @@
 {% block body %}
 
 
-    <div class="container"> 
-        <form class="form-register-parent" role="form" action="{{ url_for ('process_endorsement') }}" method="post"> 
+    <!-- <div class="container">  -->
+        <form class="form-endorsement row" role="form" action="{{ url_for ('process_endorsement') }}" method="post"> 
             <div>
 
               {% for endo in endorse_obj_list %}  
@@ -26,12 +26,12 @@
             <div>
       {% for endo in endorse_obj_list %} 
       <input type="hidden" name="center_id" value="{{ endo.center.id }}">
-    <input class="form-control" type="text" name="endo_text" placeholder="Tell us about your experience with this daycare."> 
+    <textarea class="form-control"  name="endo_text" placeholder="Tell us about your experience with this daycare."> </textarea>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                 {% endfor %}
                 
         </form>
-        </div>
+        <!-- </div> -->
 <!--     </div> -->
 
 

@@ -156,3 +156,8 @@ body {
     background-color: white !important;
     border: 0;
 }
+
+.form-endorsement {
+    margin-left: 25px;
+    width: 50%;
+}
