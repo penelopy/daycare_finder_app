@@ -12,15 +12,12 @@
   <h2 id="grid-options">Parent Worksheet</h2>
   <p>Make notes about daycares that interest you. Click to edit table.</p> 
 
-
-  <!-- <p class="glyphicon glyphicon-pencil">Click to edit table</p> -->
   <div class="table-responsive">
   <form class="form-register-parent" role="form" action="{{ url_for ('process_par_wksht') }}" method="post"> 
 
     <table class="table table-bordered table-striped table-parent">
       <thead class="table-head">
         <tr>
-<!--           <th></th> -->
           <th>
             Daycare Name
           </th>
@@ -37,18 +34,15 @@
       </thead>
 
       <tbody>
-          <!-- <th class="text-nowrap"></th> -->
 
         {% for wksht_row in wksht_rows %}
         <tr>
-<!--           <td class="glyphicon glyphicon-pencil"></td> -->
           <td id="dc_name" name="{{ wksht_row.daycare_id }}"><a href="{{ url_for ('view_center', center_id = wksht_row.daycare_id) }}">{{ wksht_row.daycare.biz_name }}</td>
           <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="i{{ wksht_row.daycare_id }}" name="interest">{{ wksht_row.level_of_interest }}</td>
           <td class="edit-parent" data="{{ wksht_row.daycare_id }}" id="n{{ wksht_row.daycare_id }}" name="notes">{{ wksht_row.notes }}</td>
           <td class="del glyphicon glyphicon-remove" data="{{ wksht_row.id }}" id="{{ wksht_row.id }}"></td>
         </tr>
         {% endfor %}
-        <!-- </tr> -->
  
       </tbody>
     </table>
@@ -58,8 +52,7 @@
       {% for endorsement in endorsements %}
             <li><a href="{{ url_for ('view_center', center_id = endorsement.center.id) }}">{{ endorsement.center.biz_name }}</li>
 
-<!--       <p><a href="{ url_for('viewcenter'), endorsement.center.id= endorsement.center.id }">{{ endorsement.center.biz_name }}<a></p>
- -->      {% endfor %}
+     {% endfor %}
 
   </div>
 

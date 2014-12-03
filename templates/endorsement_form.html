@@ -1,12 +1,8 @@
 
 {% extends 'base.html' %}
 {% block head %}
-    <!-- <link href="../static/css/jumbotron.css" rel="stylesheet"> -->
     <link href="../static/css/grid.css" rel="stylesheet">
     <link href="../static/css/signin.css" rel="stylesheet">
-    <!-- <link href="../static/css/custom.css" rel="stylesheet"> -->
-    <!-- <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../static/css/carousel.css">   -->
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
     <link href="../static/css/custom.css" rel="stylesheet">    
@@ -14,25 +10,21 @@
 
 {% block body %}
 
-
-    <!-- <div class="container">  -->
         <form class="form-endorsement row" role="form" action="{{ url_for ('process_endorsement') }}" method="post"> 
             <div>
-
               {% for endo in endorse_obj_list %}  
                 <h4>Daycare Center: {{ endo.center.biz_name }}</h4>
                 {% endfor %}
             </div>
+
             <div>
-      {% for endo in endorse_obj_list %} 
-      <input type="hidden" name="center_id" value="{{ endo.center.id }}">
-    <textarea class="form-control"  name="endo_text" placeholder="Tell us about your experience with this daycare."> </textarea>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                {% endfor %}
+              {% for endo in endorse_obj_list %} 
+                  <input type="hidden" name="center_id" value="{{ endo.center.id }}">
+                    <textarea class="form-control"  name="endo_text" placeholder="Tell us about your experience with this daycare."> </textarea>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            {% endfor %}
                 
         </form>
-        <!-- </div> -->
-<!--     </div> -->
 
 
 
