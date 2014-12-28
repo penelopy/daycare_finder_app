@@ -16,7 +16,7 @@
 
 <!-- {{ daycare_obj.photos }} -->
 
- <!--        {% for photo in daycare_obj.photos %}
+       <!--  {% for photo in daycare_obj.photos %}
         {{ photo.photo_link }}
                 {% endfor %} -->
 
@@ -42,7 +42,7 @@
       <div class="row parent_btn ">
         <div class="col-md-4 col-md-offset-2 profile-button-container">
             <form class="form-register-parent" role="form" action="{{ url_for ('send_to_endorse_form') }}" method="post"> 
-                <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Endorse this daycare</button>
+                <button class="btn btn-lg btn-primary btn-block" name="daycare_id" value="{{ daycare_obj.id }}" type="submit">Review this daycare</button>
             </form>
           </div>
 
@@ -58,7 +58,7 @@
         <div class="col-md-4 col-md-offset-2 profile-button-container"> 
           <form class="form-register-parent" role="form"> 
           <div class="pull-right"> 
-              <span title="Log in to endorse this daycare"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Endorse this daycare</button></span>
+              <span title="Log in to endorse this daycare"><button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Review this daycare</button></span>
           </div>
         </form>
        </div>
@@ -80,7 +80,7 @@
 			<h4> About Us
 			</h4> 
   				<p>{{ daycare_obj.about_us }}</p>
-        <h4> Endorsements</h4>
+        <h4> Parent Reviews</h4>
           {% for endorsement in daycare_obj.endorsements %}
           <p>{{ endorsement.endorsement }}</p>
           {% endfor %}
