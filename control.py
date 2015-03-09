@@ -45,8 +45,8 @@ def login():
 	else:
 		return render_template("login.html")
 
-#PARENT PAGES##############################################################
-
+###############################################################################
+#'PARENT USER' RELATED FUNCTIONS
 @app.route('/par_signup')
 def par_signup():
 	"""Renders parent signup/registration page"""
@@ -101,8 +101,8 @@ def search():
 
 @app.route('/search_page', methods=['GET', 'POST'])
 def search_page(): 
-	"""Processes location-based search request by querying database
-		and displays daycare listings"""
+	"""Processes location-based search request by querying database,
+		and then displays daycare listings"""
 
 	if request.form['zipcode']: 
 		zipcode = request.form['zipcode']		
@@ -124,7 +124,6 @@ def search_page():
 		else:	
 			return render_template('alt_search_results.html', daycare_obj_list = daycare_list)
 
-
 @app.route('/adv_searchpage')
 def advanced_search(): 
 	"""Displays advanced search page"""
@@ -132,8 +131,11 @@ def advanced_search():
 
 @app.route('/process_search', methods=['POST'])
 def process_search():
-	"""Processes search input from AJAX or HTML form, queries 'center' table in 
-	database, complies and renders a results list page"""
+	"""Retrieves search input data from AJAX or HTML form 
+		Uses search input data to query 'centers' table to match the selected language, daycare type, 
+			openings, location and schedule to daycare centers that have those features
+		Returns a list of daycares ordered by the frequency they matched search criteria
+	"""
 	langs = []
 	dc_types = []
 	sch = []
@@ -148,21 +150,18 @@ def process_search():
 	center_city_list = []
 	results_dict = {}
 	results_list = []
-	# match_all_list = []
-	# final_match_list = []
-	values_list = []
 	num_criteria_selected = 0
 
 	for key in request.form.keys():
-		if key[0:4] == "lang":
+		if key.startswith("lang"):
 			langs.append(key[4:])
-		if key[0:4] == "dtyp":
+		if key.startswith("dtyp"):
 			dc_types.append(key[4:])
-		if key[0:4] == "sche":
+		if key.startswith("sche"):
 			sch.append(key[4:])
-		if key[0:4] == "need":
+		if key.startswith("need"):
 			s_need.append(key[4:])
-		if key[0:4] == "cope":
+		if key.startswith("cope"):
 			c_openings.append(key[4:])
 
 	if request.form.get('zipcode'):
@@ -179,7 +178,6 @@ def process_search():
 		center_city_list = model.db_session.query(model.Center).filter_by(
 			address = address).all()
 		for center in center_city_list: 
-		# 	print "center", center.id
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	if len(langs) > 0: 
@@ -233,24 +231,14 @@ def process_search():
 			results_dict[center.id] = results_dict.setdefault(center.id , 0) + 1
 
 	output_tup_list= sorted(results_dict.items(), key=lambda x: x[1], reverse=True)
-	print output_tup_list
 
 	for i in range(len(output_tup_list)):
 		center_obj = model.db_session.query(model.Center).filter_by(
 			id = output_tup_list[i][0]).one()	
 		results_list.append(center_obj)
 
-	print "results list", results_list
-	print "results dict", results_dict
 	return render_template('adv_results_ext.html', results_list=results_list)
 
-
-@app.route('/processtype', methods=['POST']) 
-def process_center_type():
-	""" """
-	value = request.form.get('id')
-	centers = model.db_session.query(model.Center).filter_by(type_of_center_id= value).all()
-	return render_template('daycare_list_results.html', daycare_obj_list = centers)
 
 @app.route('/parent_worksheet')
 def parent_worksheet(): 
@@ -268,7 +256,7 @@ def parent_worksheet():
 @app.route('/viewcenter/<int:center_id>', methods=['GET','POST'])
 def view_center(center_id):
 	"""Processes user selection (click) by querying database and displays 
-	individual daycare page"""
+		individual daycare page"""
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
 	return render_template('center_profile.html', daycare_obj = daycare_obj)
@@ -276,8 +264,8 @@ def view_center(center_id):
 @app.route('/sendwksht', methods=['POST'])
 def send_to_worksheet():
 	"""Processes selected daycare id by querying database and either adds daycare 
-	to parent worksheet or flashes message to screen that the daycare 
-	already exists on worksheet"""
+		to parent worksheet or flashes message to screen that the daycare 
+		already exists on worksheet"""
 	p = g.parent_id
 	daycare_id = request.form.get('daycare_id')
 	daycare_list = model.db_session.query(model.WorksheetRow).filter_by(
@@ -294,8 +282,8 @@ def send_to_worksheet():
 @app.route('/parent_wksht', methods=['POST'])
 def process_par_wksht():
 	"""Uses AJAX (see 'custom_editing.js' file) to create user on-screen 
-	editing of parent worksheet fields. Saves new information to database and 
-	displays edited information on-screen"""
+		editing of parent worksheet fields. Saves new information to database and 
+		displays edited information on-screen"""
 	p = g.parent_id
 	value = request.form.get('value')
 	element = request.form.get('id')
@@ -312,7 +300,7 @@ def process_par_wksht():
 @app.route('/delete_daycare', methods=['POST'])
 def delete_daycare():
 	"""Works with AJAX (see 'custom_editing.js' file) and deletes daycare from 
-	parent worksheet"""
+		parent worksheet"""
 	if g.parent_id: 
 		wkshtid = request.form.get('wkshtid')
 		daycare = model.db_session.query(model.WorksheetRow).filter_by(id = wkshtid).all()
@@ -326,8 +314,21 @@ def delete_daycare():
 		flash("Log in to use this feature.")
 		return redirect(url_for('login_p'))
 
-#DAYCARE CENTER USERS ###########################################################
+@app.route('/process_endorse', methods=['POST'])
+def process_endorsement(): 
+	"""Updates endorsement table in database with new endorsement and redirects parent
+		to their private worksheet page"""
+	p = g.parent_id
+	center_id= request.form.get('center_id')
+	endo_text = request.form.get('endo_text')
+	e_obj = model.db_session.query(model.Endorsement).filter_by(daycare_id = center_id
+		).filter_by(parent_id=p).one()
+	e_obj.endorsement = endo_text
+	model.db_session.commit()
+	return redirect(url_for('parent_worksheet'))
 
+###############################################################################
+#DAYCARE USER PROFILE FUNCTIONS
 @app.route('/center_signup')
 def center_signup():
 	"""Renders daycare center signup page"""
@@ -336,7 +337,7 @@ def center_signup():
 @app.route('/c_register', methods=['POST'])
 def process_c_registration(): 
 	"""Processes daycare registration items from HTML form, queries database and 
-	returns private and editable daycare center page"""
+		returns private and editable daycare center page"""
 	username = request.form['username']
 	password = request.form['password']
 	email = request.form['email']
@@ -354,8 +355,8 @@ def process_c_registration():
 
 @app.route('/center', methods=['POST'])
 def login_d(): 
-	"""Processes username/password from HTML form, queries database and returns
-	private and editable daycare center page"""
+	"""Processes username/password from HTML form, queries database and redirects
+		to 'view_center_private' function"""
 	username = request.form['username']
 	password = request.form['password']
 	center_obj = model.db_session.query(model.Center).filter_by(username=username
@@ -370,46 +371,29 @@ def login_d():
 
 @app.route('/viewcenterpri/<int:center_id>', methods=['GET','POST'])  
 def view_center_private(center_id):
+	"""Returns private and editable daycare center page based on the center_id parameter"""
 	d = center_id
 	daycare_obj = model.db_session.query(model.Center).get(d)
 	return render_template('center_profile_private.html', daycare_obj = daycare_obj)	
 
 @app.route('/edit_center', methods=['POST'])
 def edit_center_profile():
-
+	"""Updates daycare user information in database and displays new information on 
+		daycare page"""
 	u = flask_session['daycare_center_id']
 	name = request.form.get('name')
 	element = request.form.get('id')
 	print "name=", name
 	print "element", element
 	center_obj = model.db_session.query(model.Center).filter_by(id = u).one()
-	if element == "email": 
-		center_obj.email = name
-	elif element == "primary_contact": 
-		center_obj.primary_contact = name
-	elif element == "zipcode": 
-		center_obj.zipcode = name
-	elif element == "neighborhood": 
-		center_obj.neighborhood = name
-	elif element == "hours": 
-		center_obj.opening_time = name
-	elif element == "phone": 
-		center_obj.phone = name
-	elif element == "website": 
-		center_obj.web_url = name
-	elif element == "fb_url": 
-		center_obj.fb_url = name
-	elif element == "capacity": 
-		center_obj.capacity = name  
-	elif element == "license_num": 
-		center_obj.license_num = name
-	elif element == "about_us": 
-		center_obj.about_us = name  		
+	center_obj.element = name
 	model.db_session.commit()
 	return name
 
 @app.route('/edittype', methods=['POST']) 
 def edit_center_type():
+	"""Responds to change in dropdown option selected and updates 'type' 
+		associated with daycare center"""
 	d = flask_session['daycare_center_id']
 	center_typeid = request.form.get('id')
 	center_obj = model.db_session.query(model.Center).filter_by(id = d).one()
@@ -419,6 +403,8 @@ def edit_center_type():
 
 @app.route('/sendendorse', methods=['POST'])
 def send_to_endorse_form():
+	"""Queries database to confirm that parent has not previously written an 
+	endorsement for a particular daycare, then redirects to endorsement form url"""
 	p = g.parent_id
 	daycare_id = request.form.get('daycare_id')
 	exist_endorse = model.db_session.query(model.Endorsement).filter_by(
@@ -433,18 +419,6 @@ def send_to_endorse_form():
 	else:
 		flash("You've already endorsed this daycare")
 		return redirect(url_for('parent_worksheet'))
-
-
-@app.route('/process_endorse', methods=['POST'])
-def process_endorsement(): 
-	p = g.parent_id
-	center_id= request.form.get('center_id')
-	endo_text = request.form.get('endo_text')
-	e_obj = model.db_session.query(model.Endorsement).filter_by(daycare_id = center_id
-		).filter_by(parent_id=p).one()
-	e_obj.endorsement = endo_text
-	model.db_session.commit()
-	return redirect(url_for('parent_worksheet'))
 
 
 if __name__ == "__main__":
