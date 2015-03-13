@@ -14,7 +14,7 @@ This is my <strong>final project for Hackbright Academy</strong> and was a solo 
 <li>daycare owners can create and manage their own business profile</li>
 </ul>
 <strong>Data Model:</strong> (model.py)I used SQLite3 and SQLAlchemy to create a database with <strong>8 tables</strong>. Relationships are key to my data so I selected these technologies to create a relational database. The arrows in the image below indicate how the data tables connect, dual arrows between two tables are intended to illustrate a <strong>many-to-many relationship</strong>.
-![image](static/img/data_table_image_2.jpg)
+![image](static/img/data_table_image.jpg)
 
 ####Page Views (12 unique views):
 ***
