@@ -4,7 +4,7 @@ COMING SOON: Deployed app on Heroku
 
 <strong>Technology Stack:</strong>Python, Flask, SQLite3, SQLAlchemy, Jinja, Javascript, Jquery, Ajax, HTML, CSS, Bootstrap
 
-This is my <strong>final project for Hackbright Academy</strong> and was a solo project built over a four week period using Python and a Flask. 
+This is my <strong>final project for Hackbright Academy</strong> and was a solo project built over a four week period using Python and Flask. 
 <strong>Objective: </strong>The purpose of this daycare finder app is to help parents research and choose daycares that meet their individual needs. 
 <strong>Features:</strong><ul><li>advanced search functionality</li>
 <li>user signup and login</li>
@@ -33,7 +33,9 @@ This is my <strong>final project for Hackbright Academy</strong> and was a solo 
 ***
 
 ###Sample Pages:
-####<strong>Advanced Search Page</strong>![image](static/img/adv_search.jpg)
+
+####<strong>Daycare Profile Page</strong>![image](static/img/daycare_profile.jpg)
+####<strong>Advanced Search Page</strong>![image](static/img/adv_search.jpg)
 
 ####<strong>Parent Worksheet</strong>
 ![image](static/img/par_worksheet.jpg)<strong>Tech Note:</strong> I used a Jquery library called Jeditable to enable the user to make in-place edits to either their worksheet (parents), or their profile page (daycare owners). This feature required AJAX and Javascript to complete the functionality.
