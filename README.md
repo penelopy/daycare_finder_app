@@ -34,8 +34,7 @@ This is my <strong>final project for Hackbright Academy</strong> and was a solo 
 
 ###Sample Pages:
 
-####<strong>Daycare Profile Page</strong>![image](static/img/adv_search.jpg)
-####<strong>Advanced Search Page</strong>![image](static/img/adv_search.jpg)
+####<strong>Daycare Profile Page</strong>![image](static/img/daycare_profile_2.jpg)####<strong>Advanced Search Page</strong>![image](static/img/adv_search.jpg)
 
 ####<strong>Parent Worksheet</strong>
 ![image](static/img/par_worksheet.jpg)<strong>Tech Note:</strong> I used a Jquery library called Jeditable to enable the user to make in-place edits to either their worksheet (parents), or their profile page (daycare owners). This feature required AJAX and Javascript to complete the functionality.
