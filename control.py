@@ -46,7 +46,7 @@ def login():
 		return render_template("login.html")
 
 ###############################################################################
-#'PARENT USER' RELATED FUNCTIONS
+"""'PARENT USER' RELATED FUNCTIONS"""
 @app.route('/par_signup')
 def par_signup():
 	"""Renders parent signup/registration page"""
@@ -314,6 +314,25 @@ def delete_daycare():
 		flash("Log in to use this feature.")
 		return redirect(url_for('login_p'))
 
+@app.route('/sendendorse', methods=['POST'])
+def send_to_endorse_form():
+	"""Queries database to confirm that parent has not previously written an 
+	endorsement for a particular daycare, then redirects to endorsement form url"""
+	p = g.parent_id
+	daycare_id = request.form.get('daycare_id')
+	exist_endorse = model.db_session.query(model.Endorsement).filter_by(
+		daycare_id = daycare_id, parent_id =p).all()
+	if len(exist_endorse) == 0: 
+		new_endorse = model.Endorsement(parent_id = p, daycare_id = daycare_id)
+		model.db_session.add(new_endorse)
+		model.db_session.commit()
+		endorse_obj_list = model.db_session.query(model.Endorsement).filter_by(
+			parent_id = p).filter_by(daycare_id = daycare_id).all()
+		return render_template('endorsement_form.html', endorse_obj_list = endorse_obj_list)
+	else:
+		flash("You've already endorsed this daycare")
+		return redirect(url_for('parent_worksheet'))
+
 @app.route('/process_endorse', methods=['POST'])
 def process_endorsement(): 
 	"""Updates endorsement table in database with new endorsement and redirects parent
@@ -327,8 +346,10 @@ def process_endorsement():
 	model.db_session.commit()
 	return redirect(url_for('parent_worksheet'))
 
+
 ###############################################################################
-#DAYCARE USER PROFILE FUNCTIONS
+""""DAYCARE USER PROFILE FUNCTIONS"""
+
 @app.route('/center_signup')
 def center_signup():
 	"""Renders daycare center signup page"""
@@ -400,25 +421,6 @@ def edit_center_type():
 	center_obj.type_of_center_id = center_typeid
 	model.db_session.commit()
 	return "OK"
-
-@app.route('/sendendorse', methods=['POST'])
-def send_to_endorse_form():
-	"""Queries database to confirm that parent has not previously written an 
-	endorsement for a particular daycare, then redirects to endorsement form url"""
-	p = g.parent_id
-	daycare_id = request.form.get('daycare_id')
-	exist_endorse = model.db_session.query(model.Endorsement).filter_by(
-		daycare_id = daycare_id, parent_id =p).all()
-	if len(exist_endorse) == 0: 
-		new_endorse = model.Endorsement(parent_id = p, daycare_id = daycare_id)
-		model.db_session.add(new_endorse)
-		model.db_session.commit()
-		endorse_obj_list = model.db_session.query(model.Endorsement).filter_by(
-			parent_id = p).filter_by(daycare_id = daycare_id).all()
-		return render_template('endorsement_form.html', endorse_obj_list = endorse_obj_list)
-	else:
-		flash("You've already endorsed this daycare")
-		return redirect(url_for('parent_worksheet'))
 
 
 if __name__ == "__main__":
