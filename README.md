@@ -34,7 +34,7 @@ This is my <strong>final project for Hackbright Academy</strong> and was a solo 
 
 ###Sample Pages:
 
-####<strong>Daycare Profile Page</strong>![image](static/img/daycare_profile.jpg)
+####<strong>Daycare Profile Page</strong>![image](static/img/daycare_profile_2.jpg)
 ####<strong>Advanced Search Page</strong>![image](static/img/adv_search.jpg)
 
 ####<strong>Parent Worksheet</strong>
