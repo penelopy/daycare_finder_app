@@ -6,10 +6,10 @@ COMING SOON: Deployed app on Heroku
 
 This is my <strong>final project for Hackbright Academy</strong> and was a solo project built over a four week period using Python and Flask. 
 <strong>Objective: </strong>The purpose of this daycare finder app is to help parents research and choose daycares that meet their individual needs. 
-<strong>Features:</strong><ul><li>advanced search functionality</li>
+<strong>Features:</strong><ul><li>user can filter search by location, schedule, etc</li>
 <li>user signup and login</li>
 <li>editable worksheet to help parents record and track their daycare search progress</li>
-<li>endorsement of daycares by parents</li>
+<li>parents can endorse daycares</li>
 <li>individual daycare profiles with carousel of images</li>
 <li>daycare owners can create and manage their own business profile</li>
 </ul>
