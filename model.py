@@ -57,7 +57,7 @@ class Center(Base):
 	web_url = Column(String(64))
 	fb_url = Column(String(64))
 	# biz facts
-	yr_in_biz = Column(Integer(12))
+	# yr_in_biz = Column(Integer(12))
 	capacity = Column(String(12))
 	num_staff = Column(String(12))
 	license_num = Column(String(12))

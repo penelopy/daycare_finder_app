@@ -17,7 +17,9 @@
         <form class="form-register-parent" action="/process_search" method="post"> 
             <h2 "form-signin-heading"> Advanced Search</h2>
                 <div class="row">
-                   <div class="col-md-4">
+
+                  <div class='centering-div'>
+                   <div class="col-md-4 current-openings">
                       <h4><input type="checkbox" id="copeT" name="copeT">  <strong>Current Openings</strong></h4>
                       <strong><h4>City</h4></strong>
                       <input type ="address" class="form-control" autofocus name="address"> 
@@ -42,7 +44,7 @@
                     </div>
 
     
-                    <div class="col-md-4 col-md-offset-2"> 
+                    <div class="col-md-4 col-md-offset-2 languages-spoken"> 
                       <strong><h4>Language(s) Spoken</h4></strong>
                       <p><input type="checkbox" id="lang1" name="lang1">  English</p>
                       <p><input type="checkbox" id="lang2" name="lang2">  American Sign Language<p>
@@ -56,12 +58,14 @@
                       <p><input type="checkbox" id="lang7" name="lang7">  Spanish<p>
                       <p><input type="checkbox" id="lang8" name="lang8">  Vietnamese</p>
                     </div>
-            </div>
-              <p><input class="btn btn-sm btn-primary btn-block btn-width" value="Submit" type="Submit"></input></p>
 
+
+              <div class='button-div'>
+                <input class="btn btn-sm btn-primary btn-block btn-width" value="Submit" type="Submit"></input>
+              </div>
+            </div> <!-- centering-div -->
+          </div>
         </form>
-         
-
     </div>
 
 

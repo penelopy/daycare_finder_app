@@ -1,3 +1,30 @@
+.centering-div{
+    /*border: 1px solid black;*/
+    position: relative;
+    left: 47%;
+    transform: translateX(-50%);
+    width: 73%;
+}
+
+.current-openings{
+    width: 40% ;
+    position: relative;
+}
+
+.languages-spoken{
+    position: relative;
+    width: 40% ;
+}
+
+.button-div{
+    display: block;
+    margin-top: 50px;
+    position: relative; 
+    /*border: 1px solid red;*/
+    bottom: -150px;
+}
+
+
 body,html
 {
    height:100%;   
