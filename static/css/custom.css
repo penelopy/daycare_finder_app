@@ -1,7 +1,7 @@
 .centering-div{
     /*border: 1px solid black;*/
     position: relative;
-    left: 47%;
+    left: 50%;
     transform: translateX(-50%);
     width: 73%;
 }
@@ -22,8 +22,24 @@
     position: relative; 
     /*border: 1px solid red;*/
     bottom: -150px;
+    left: -7%;
 }
 
+.splash{
+    top: 130px !important;
+    position: relative;
+}
+.search-items{
+    position: relative;
+    left: 50%;
+    transform: translateX(-14%);
+    /*width: 50%;*/
+
+}
+
+.panel-body{
+    word-wrap: break-word !important;
+}
 
 body,html
 {
