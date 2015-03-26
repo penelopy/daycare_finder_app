@@ -23,6 +23,7 @@
     /*border: 1px solid red;*/
     bottom: -150px;
     left: -7%;
+    z-index: -1;
 }
 
 .splash{
